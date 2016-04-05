@@ -19,6 +19,5 @@ $ bower install
 ### Build wikistats
 ```
 $ gulp watch
-
 ```
 The project will be built in dist.
