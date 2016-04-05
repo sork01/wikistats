@@ -8,7 +8,7 @@ var gulp = require('gulp'),
     minifyCSS = require('gulp-clean-css'),
     jshint = require('gulp-jshint');
 
-gulp.task('default', ['css', 'js']); 
+gulp.task('default', ['copy', 'css', 'js']); 
 
 gulp.task('browserSync', function() {
     browserSync.init({
@@ -17,7 +17,13 @@ gulp.task('browserSync', function() {
         },
     })
 })
-
+gulp.task('copy', function() {
+    return gulp.src('app/*.html')
+        .pipe(gulp.dest('dist'))
+        .pipe(browserSync.reload({
+            stream: true
+    }))
+});
 gulp.task('lint', function() {
     return gulp.src('app/**/*.js')
         .pipe(jshint())
@@ -25,10 +31,10 @@ gulp.task('lint', function() {
         .pipe(jshint.reporter('fail'))
 });
 
-gulp.task('watch', ['browserSync', 'css'],  function(){
+gulp.task('watch', ['browserSync', 'css', 'lint', 'copy'],  function(){
     gulp.watch('assets/scss/**/*.scss', ['css']);
     gulp.watch('app/**/*.js', ['lint', 'js']);
-    gulp.watch('app/*.html', browserSync.reload);
+    gulp.watch('app/*.html', ['copy']);
 })
 
 gulp.task('css', function() {
