@@ -12,6 +12,14 @@
     <div class="container-fluid fill">
         <div class="row fill">
             <div class="col-xs-2 fill-col" style="background: gray">
+                </br>
+                <ul data-ng-repeat="animal in groups">
+                    <p>{{animal.name}}</p>
+                    <li data-ng-repeat="breed in animal.breeds">
+                        <span>{{breed}}</span>
+                    </li>
+                    </br>
+                </ul>
             </div>
             <div class="col-xs-10 fill-col" style="background: lightblue">
                 <div class="row" style="height: 12.5%">
