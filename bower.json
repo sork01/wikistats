@@ -1,0 +1,27 @@
+{
+  "name": "wikistats",
+  "authors": [
+    "Emil Gedda <emil.gedda@emilgedda.se>"
+  ],
+  "description": "A page view stats tool for wikimedia",
+  "main": "",
+  "moduleType": [
+    "node"
+  ],
+  "keywords": [
+    "stats",
+    "pageviews",
+    "tool",
+    "wikimedia"
+  ],
+  "license": "BSD3",
+  "homepage": "https://tools.wmflabs.org/wikistats/",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}

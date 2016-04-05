@@ -1,0 +1,38 @@
+{
+  "name": "wikistats",
+  "version": "0.0.0",
+  "description": "Page view statistics tool for wikimedia",
+  "main": "gulpfile.js",
+  "directories": {
+    "doc": "doc",
+    "test": "test"
+  },
+  "dependencies": {
+    "karma": "^0.13.22",
+    "protractor": "^3.2.2"
+  },
+  "devDependencies": {
+    "browser-sync": "^2.11.2",
+    "gulp": "^3.9.1",
+    "gulp-clean-css": "^2.0.4",
+    "gulp-concat": "^2.6.0",
+    "gulp-jshint": "^2.0.0",
+    "gulp-ng-annotate": "^2.0.0",
+    "gulp-sass": "^2.2.0",
+    "gulp-sourcemaps": "^1.6.0",
+    "gulp-uglify": "^1.5.3",
+    "jshint": "^2.9.1"
+  },
+  "scripts": {
+    "test": "node node_modules/karma/bin/karma start test/karma.conf.js"
+  },
+  "keywords": [
+    "wikimedia",
+    "wikistats",
+    "stats",
+    "pageviews",
+    "statistics"
+  ],
+  "author": "Emil Gedda and the Wikistats group",
+  "license": "BSD-3-Clause"
+}
