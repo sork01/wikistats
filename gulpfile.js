@@ -8,7 +8,7 @@ var gulp = require('gulp'),
     minifyCSS = require('gulp-clean-css'),
     jshint = require('gulp-jshint');
 
-gulp.task('default', ['copy','copyvendor', 'css', 'js']); 
+gulp.task('default', ['copy','copyvendor', 'css', 'js', 'lint']); 
 
 gulp.task('browserSync', function() {
     browserSync.init({
@@ -67,6 +67,9 @@ gulp.task('js', function () {
         .pipe(sourcemaps.init())
             .pipe(concat('app.min.js'))
             .pipe(ngAnnotate())
+            .on('error', function () {
+                this.emit('end');
+            })
             .pipe(uglify())
         .pipe(sourcemaps.write('maps'))
         .pipe(gulp.dest('dist/assets/js'))
