@@ -13,6 +13,8 @@
         <div class="row fill">
             <div class="col-xs-2 fill-col" style="background: gray">
                 </br>
+                <p> <input type="text" size="24" ng-model="search" placeholder="Search...">
+                </p>
                 <ul data-ng-repeat="animal in groups">
                     <p>{{animal.name}}</p>
                     <li data-ng-repeat="breed in animal.breeds">
@@ -21,17 +23,24 @@
                     </br>
                 </ul>
             </div>
-            <div class="col-xs-10 fill-col" style="background: lightblue">
-                <div class="row" style="height: 12.5%">
-                    <div class="col-xs-12 fill-col" style="background: beige">
+            <div class="col-xs-10 fill-col" style="background: white">
+                <div class="row" style="height: 8%">
+                    <div class="col-xs-12 fill-col" style="background: gray">
+                        <form>
+                        Views
+                        <input type="checkbox" ng-model="views">
+                        Edits
+                        <input type="checkbox" ng-model="edits">
+                        </form>   
                     </div>
                 </div>
-                <div class="row" style="height: 75%">
+                <div class="row" style="height: 84%">
                     <div class="col-xs-12 fill-col">
+                <p ng-show="search"> letade du efter {{ search }}?</p> <p ng-show="views">och vill se VIEWS?</p>  <p ng-show="edits">och vill se EDITS?</p>
                     </div>
                 </div>
-                <div class="row" style="height: 12.5%">
-                    <div class="col-xs-12 fill-col" style="background: beige">
+                <div class="row" style="height: 8%">
+                    <div class="col-xs-12 fill-col" style="background: gray">
                     </div>
                 </div>
             </div>
