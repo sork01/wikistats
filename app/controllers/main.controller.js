@@ -21,14 +21,12 @@ module.exports = function($scope, pageViews) {
             'Bass'
         ]}
     ];
-    pageViews.get({
+    pageViews.query({
         project:    "en.wikipedia",
         article:    "Dog",
         from:       "20160101",
         to:         "20160110",
-    }).$promise.then(function (result) {
-        angular.forEach(result.items, function(val, key) {
-            console.log({date: val.timestamp, views: val.views});
-        });
+    }).$promise.then(function(result) {
+        console.log(result.article);
     });
-}
+};
