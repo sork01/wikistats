@@ -1,6 +1,4 @@
-var wikistats = angular.module('wikistats', []);
-
-wikistats.controller('MainController', function($scope) {
+module.exports = function($scope, pageViews) {
     $scope.groups = [
         { 'name' : 'Dogs',
             'breeds': [
@@ -23,4 +21,14 @@ wikistats.controller('MainController', function($scope) {
             'Bass'
         ]}
     ];
-});
+    pageViews.get({
+        project:    "en.wikipedia",
+        article:    "Dog",
+        from:       "20160101",
+        to:         "20160110",
+    }).$promise.then(function (result) {
+        angular.forEach(result.items, function(val, key) {
+            console.log({date: val.timestamp, views: val.views});
+        });
+    });
+}
