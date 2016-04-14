@@ -1,4 +1,4 @@
-module.exports = function($scope, pageViews) {
+module.exports = function($scope, pageViews, langLinks) {
     $scope.groups = [
         { 'name' : 'Dogs',
             'breeds': [
@@ -28,5 +28,9 @@ module.exports = function($scope, pageViews) {
         to:         "20160110",
     }).$promise.then(function(result) {
         console.log(result.article);
+    });
+    
+    langLinks.query({
+        title: "Carrot"
     });
 };
