@@ -28,8 +28,10 @@ gulp.task('copy', function() {
 })
 
 gulp.task('copyvendor', function() {
-    return gulp.src(['node_modules/angular/**/*', 'node_modules/angular-resource/**/',
-                    'node_modules/bootstrap/dist/css/**/'])
+    return gulp.src(['node_modules/angular/**/*', 
+                    'node_modules/angular-resource/**/*',
+                    'node_modules/bootstrap-css-only/css/**/*',
+                    'node_modules/angular-ui-bootstrap/dist/**/*'])
         .pipe(gulp.dest('dist/vendor'))
 })
 
@@ -41,13 +43,13 @@ gulp.task('lint', function() {
 });
 
 gulp.task('watch', ['browserSync', 'default'],  function(){
-    gulp.watch('assets/scss/**/*.scss', ['css']);
+    gulp.watch('assets/scss/**/*.s*ss', ['css']);
     gulp.watch('app/**/*.js', ['lint', 'js']);
     gulp.watch('app/*.html', ['copy']);
 })
 
 gulp.task('css', function() {
-    return gulp.src('assets/scss/**/*.scss') 
+    return gulp.src('assets/scss/**/*.s*ss') 
         .pipe(sass())
         .pipe(concat('styles.min.css'))
         .pipe(minifyCSS())
