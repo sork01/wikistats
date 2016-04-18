@@ -59,8 +59,8 @@ module.exports = function($scope, pageViews, searchService) {
     searchService.query({
         namespace: "sv.wikipedia",
         str: "Albert+Einstein"
-    }).$promise.then(function (data) {
-        console.log(data);
+    }).success(function(data) {
+        $scope.search = data;
     });
 };
 
