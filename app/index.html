@@ -18,7 +18,8 @@
                 </p>
                 <ul data-ng-repeat="animal in groups">
                     <hr>
-                    <p>{{animal.name}}</p>
+                    <p style="text-align: left;">{{animal.name}} 
+                    <span style="float:right;"><a href="showsubs">&#x25BC;</a> <a href="visible">&lt;o&gt;</a> <a href="dropdown">...</a></p>
                     <li data-ng-repeat="breed in animal.breeds">    
                         <span>{{breed}}</span>
                     </li>
@@ -35,7 +36,8 @@
                                 <option value="swe">Swedish</option>
                                 <option value="turk">Turkish</option>
                                 <option value="rovar">Rorövovarorsospoproråkoketot</option>
-                        </div>
+                            </select>
+                        </div>  
                     </div>
                 </div>
                 <div class="row" style="height: 87%">
