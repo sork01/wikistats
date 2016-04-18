@@ -1,4 +1,4 @@
-module.exports = function($scope, pageViews) {
+module.exports = function($scope, pageViews, searchService) {
     $scope.groups = [
         { 'name' : 'Dogs',
             'breeds': [
@@ -21,7 +21,9 @@ module.exports = function($scope, pageViews) {
             'Bass'
         ]}
     ];
-    
+
+    $scope.searchstr = "";
+
     $scope.projects = [ // TODO: Proper externalization and language checking
         {name: "Wikipedia",     url: "$lang$.wikipedia",    multilang: true},
         {name: "Wikiversity",   url: "$lang$.wikiversity",  multilang: true},
@@ -43,7 +45,7 @@ module.exports = function($scope, pageViews) {
     
     $scope.changeChosen = function(name, dropdown){
         $scope.chosen[dropdown] = name;
-    }
+    };
 
     pageViews.query({
         project:    "en.wikipedia",
@@ -53,4 +55,12 @@ module.exports = function($scope, pageViews) {
     }).$promise.then(function(result) {
         console.log(result.article);
     });
+
+    searchService.query({
+        namespace: "sv.wikipedia",
+        str: "Albert+Einstein"
+    }).$promise.then(function (data) {
+        console.log(data);
+    });
 };
+
