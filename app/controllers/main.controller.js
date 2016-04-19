@@ -1,4 +1,10 @@
 module.exports = function($scope, pageViews, searchService) {
+
+    $scope.search = {
+        str: "",
+        list: [] 
+    };
+
     $scope.groups = [
         { 'name' : 'Dogs',
             'breeds': [
@@ -21,8 +27,6 @@ module.exports = function($scope, pageViews, searchService) {
             'Bass'
         ]}
     ];
-
-    $scope.searchstr = "";
 
     $scope.projects = [ // TODO: Proper externalization and language checking
         {name: "Wikipedia",     url: "$lang$.wikipedia",    multilang: true},
@@ -47,6 +51,22 @@ module.exports = function($scope, pageViews, searchService) {
         $scope.chosen[dropdown] = name;
     };
 
+    $scope.$watch('search.str.length', function () {
+
+        if($scope.search.str.length <= 0) {
+            $scope.search.list = [];
+            return;
+        }
+
+        searchService.query({
+            namespace: 'sv.wikipedia', //TODO
+            str: $scope.search.str
+        }).then(function(data) {
+            console.log(data.data);
+            $scope.search.list = data.data;
+        });
+    });
+
     pageViews.query({
         project:    "en.wikipedia",
         article:    "Dog",
@@ -56,12 +76,5 @@ module.exports = function($scope, pageViews, searchService) {
         console.log(result.article);
     });
 
-    searchService.query({
-        namespace: 'sv.wikipedia',
-        str: "Turing priset"
-    }).then(function(data) {
-        console.log(data.data);
-        $scope.search = data.data;
-    });
 };
 

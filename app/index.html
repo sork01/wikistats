@@ -35,9 +35,16 @@
                             </li>
                         </ul>
                     </div> 
+                </div> 
+                <div class="row">
+                    <input type="text" style="width: 100%; border-radius: 0px" class="form-control" data-ng-model="search.str" data-ng-model-options="{debounce: 200}" placeholder="Search for article...">
                 </div>
                 <div class="row">
-                    <input type="text" style="width: 100%; border-radius: 0px" class="form-control" placeholder="Search for article...">
+                    <div> <!-- TODO: CSS and pretty things up -->
+                        <ul>
+                            <li data-ng-repeat="s in search.list">{{ s }}</li>
+                        </ul>
+                    </div>
                 </div>
                 <div class="row" style="height: auto">
                 </br>
