@@ -4,6 +4,10 @@ module.exports = function($scope, pageViews, searchService) {
         str: "",
         list: [] 
     };
+    
+    $scope.chart = {
+        selected: "Line"
+    };
 
     $scope.groups = [
         { 'name' : 'Dogs',
