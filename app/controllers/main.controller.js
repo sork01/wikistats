@@ -57,10 +57,11 @@ module.exports = function($scope, pageViews, searchService) {
     });
 
     searchService.query({
-        namespace: "sv.wikipedia",
-        str: "Albert+Einstein"
-    }).success(function(data) {
-        $scope.search = data;
+        namespace: 'sv.wikipedia',
+        str: "Turing priset"
+    }).then(function(data) {
+        console.log(data.data);
+        $scope.search = data.data;
     });
 };
 
