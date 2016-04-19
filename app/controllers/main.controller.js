@@ -52,18 +52,17 @@ module.exports = function($scope, pageViews, searchService) {
     };
 
     $scope.$watch('search.str.length', function () {
-
-        if($scope.search.str.length <= 0) {
+        var searchstr = $scope.search.str;
+        if(searchstr.length <= 0) {
             $scope.search.list = [];
             return;
         }
-
         searchService.query({
             namespace: 'sv.wikipedia', //TODO
-            str: $scope.search.str
+            str: searchstr
         }).then(function(data) {
-            console.log(data.data);
-            $scope.search.list = data.data;
+            if($scope.search.str == searchstr)
+                $scope.search.list = data.data;
         });
     });
 
