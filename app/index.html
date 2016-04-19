@@ -9,6 +9,9 @@
     <script src="/vendor/ui-bootstrap-tpls.js"></script>
     <link rel="stylesheet" href="/vendor/bootstrap.min.css">
     <link rel="stylesheet" href="/assets/css/styles.min.css">
+    <!-- Wikimedia UI -->
+    <link rel="stylesheet" href="https://wikimedia-ui.wmflabs.org/MW/mediawiki.min.css">
+    <link rel="import" href="http://munmay.com/mwui/mw/elements.html">
 </head>
 <body data-ng-controller="MainController">
     <div class="container-fluid fill">
@@ -48,13 +51,18 @@
                 </div>
                 <div class="row" style="height: auto">
                 </br>
-                <ul data-ng-repeat="animal in groups">
-                    <p>{{animal.name}}</p>
-                    <li data-ng-repeat="breed in animal.breeds">
-                        <span>{{breed}}</span>
-                    </li>
-                    </br>
-                </ul>
+                <div>
+                    <uib-accordion close-others="false" data-ng-repeat="animal in groups">
+                        <uib-accordion-group>   <!-- TODO: Custom styling -->
+                            <uib-accordion-heading>
+                                {{animal.name}} <!-- TODO: Add icons/buttons to every group (use icons from Wikimedia stylesheet) -->
+                            </uib-accordion-heading>
+                            <li data-ng-repeat="breed in animal.breeds">
+                                <span>{{breed}}</span>
+                            </li>
+                        </uib-accordion-group>
+                    </uib-accordion>
+                </div>
                 </div>
             </div>
             <div class="col-xs-10 fill-col" style="background: lightblue">
@@ -62,7 +70,7 @@
                     <div class="col-xs-12 fill-col" style="background: beige">
                     </div>
                 </div>
-                <div class="row" style="height: 75%">
+                <div class="row" style="height: 75%"> <!-- CHART GOES HERE -->
                     <div class="col-xs-12 fill-col">
                     </div>
                 </div>
