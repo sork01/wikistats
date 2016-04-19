@@ -52,8 +52,8 @@
                 <div class="row" style="height: auto">
                 </br>
                 <div>
-                    <uib-accordion close-others="false" data-ng-repeat="animal in groups">
-                        <uib-accordion-group>   <!-- TODO: Custom styling -->
+                    <uib-accordion close-others="false">
+                        <uib-accordion-group data-ng-repeat="animal in groups">   <!-- TODO: Custom styling -->
                             <uib-accordion-heading>
                                 {{animal.name}} <!-- TODO: Add icons/buttons to every group (use icons from Wikimedia stylesheet) -->
                             </uib-accordion-heading>
