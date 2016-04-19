@@ -8,37 +8,39 @@
     <script src="/vendor/angular-animate.min.js"></script>
     <script src="/assets/js/app.min.js"></script>
     <script src="/vendor/ui-bootstrap-tpls.js"></script>
-    <link rel="stylesheet" href="/vendor/bootstrap.min.css">
+    <!--link rel="stylesheet" href="/vendor/bootstrap.min.css"-->
     <link rel="stylesheet" href="/assets/css/styles.min.css">
     <!-- Wikimedia UI -->
-    <!--link rel="stylesheet" href="https://wikimedia-ui.wmflabs.org/MW/mediawiki.min.css">
-    <link rel="import" href="http://munmay.com/mwui/mw/elements.html"-->
+    <link rel="stylesheet" href="https://wikimedia-ui.wmflabs.org/MW/mediawiki.min.css">
+    <link rel="import" href="http://munmay.com/mwui/mw/elements.html">
 </head>
 <body data-ng-controller="MainController">
     <div class="container-fluid fill">
         <div class="row fill">
             <div class="col-xs-2 fill-col" style="background: #b8b8b8">
                 <div class="row">
-                    <div uib-dropdown is-open="status.isopen" class="dddiv" style="float: left">
-                        <button id="language-dd-button" type="button" class="btn ddbtn" uib-dropdown-toggle ng-disabled="disabled">
-                            {{chosen.proj}}<span class="caret" style="margin-left: 10px"></span>
-                        </button>
-                        <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="language-dd-button">
-                            <li role="menuitem" data-ng-repeat="proj in projects">
-                                <a href="#" data-ng-click="changeChosen(proj.name,'proj')">{{ proj.name }}</a>
-                            </li>
-                        </ul>
-                    </div> 
-                    <div uib-dropdown style="float: right;" class="dddiv">
-                        <button id="project-dd-button" type="button" class="btn ddbtn" uib-dropdown-toggle ng-disabled="disabled">
-                            {{chosen.lang}}<span class="caret" style="margin-left: 5px"></span>
-                        </button>
-                        <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="project-dd-button">
-                            <li role="menuitem" data-ng-repeat="proj in projects">
-                                <a href="#">{{ proj.name }}</a>
-                            </li>
-                        </ul>
-                    </div> 
+                    <div class="btn-group btn-group-justified" >
+                        <div uib-dropdown is-open="status.isopen" class="btn-group">
+                            <button id="language-dd-button" type="button" class="btn btn-default dropdown-toggle" uib-dropdown-toggle ng-disabled="disabled">
+                                {{chosen.proj}}<span class="caret" style="margin-left: 10px"></span>
+                            </button>
+                            <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="language-dd-button">
+                                <li role="menuitem" data-ng-repeat="proj in projects">
+                                    <a href="#" data-ng-click="changeChosen(proj.name,'proj')">{{ proj.name }}</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div uib-dropdown class="btn-group">
+                            <button id="project-dd-button" type="button" class="btn btn-default dropdown-toggle" uib-dropdown-toggle ng-disabled="disabled">
+                                {{chosen.lang}}<span class="caret" style="margin-left: 5px"></span>
+                            </button>
+                            <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="project-dd-button">
+                                <li role="menuitem" data-ng-repeat="proj in projects">
+                                    <a href="#">{{ proj.name }}</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
                 </div> 
                 <div class="row">
                     <input type="text" style="width: 100%; border-radius: 0px" class="form-control" data-ng-model="search.str" data-ng-model-options="{debounce: 200}" placeholder="Search for article...">
