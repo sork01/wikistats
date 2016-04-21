@@ -18,7 +18,7 @@
 <body data-ng-controller="MainController">
     <div class="container-fluid fill">
         <div class="row fill">
-            <div class="col-xs-2 fill-col" style="background: #b8b8b8">
+            <div class="col-xs-2 fill-col" style="background: #b8b8b8; ">
                 <div class="row">
                     <div class="btn-group btn-group-justified">
                         <div uib-dropdown is-open="status.isopen" class="btn-group">
@@ -128,7 +128,7 @@
                                 <div class="col-md-6">
                                     Start Date
                                     <p class="input-group">
-                                        <input type="text" class="form-control" uib-datepicker-popup="{{format}}" data-ng-model="dt" is-open="popupFrom.opened" datepicker-options="dateOptions" data-ng-required="true" close-text="Close" alt-input-formats="altInputFormats" />
+                                        <input type="text" class="form-control" uib-datepicker-popup="{{format}}" data-ng-model="dateFrom" is-open="popupFrom.opened" datepicker-options="dateOptions" data-ng-required="true" close-text="Close" alt-input-formats="altInputFormats" />
                                         <span class="input-group-btn">
                                             <button type="button" class="btn btn-default" data-ng-click="openFrom()"><i class="glyphicon glyphicon-calendar"></i></button> <!-- TODO: Get a calendar icon -->
                                         </span>
@@ -138,7 +138,7 @@
                                 <div class="col-md-6">
                                     End Date
                                     <p class="input-group">
-                                        <input type="text" class="form-control" uib-datepicker-popup ng-model="dt" is-open="popupTo.opened" datepicker-options="dateOptions" data-ng-required="true" close-text="Close" />
+                                        <input type="text" class="form-control" uib-datepicker-popup data-ng-model="dateTo" is-open="popupTo.opened" datepicker-options="dateOptions" data-ng-required="true" close-text="Close" />
                                         <span class="input-group-btn">
                                             <button type="button" class="btn btn-default" data-ng-click="openTo()"><i class="glyphicon glyphicon-calendar"></i></button> <!-- TODO: Get a calendar icon -->
                                         </span>

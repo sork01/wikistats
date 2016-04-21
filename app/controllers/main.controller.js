@@ -3,11 +3,10 @@ var pageviewChartModel = require('../models/pageviewchart.model');
 module.exports = function($scope, pageViews, searchService, chartService) {
 
     chart = chartService.createChart('myChart', new pageviewChartModel());
+    $scope.dateFrom = new Date(Date.parse("2016-01-01"));
+    $scope.dateTo = new Date(Date.parse("2016-04-01"));
+    chart.setDateRange($scope.dateFrom, $scope.dateTo);
 
-    chart.setDateRange(
-        new Date(Date.parse("2016-01-01")), 
-        new Date(Date.parse("2016-04-01"))
-    );
 
     $scope.groups = [];
 
@@ -19,13 +18,23 @@ module.exports = function($scope, pageViews, searchService, chartService) {
     $scope.chart = {
         selected: "Line"
     };
+
+    $scope.dateToStr = function(date) {
+        var day = date.getDate() + '';
+        var month = date.getMonth() + 1 + '';
+        var year = date.getFullYear() + '';
+        var month = month < 10 ? '0' + month: month;
+        console.log(month);
+        var day = day < 10 ? '0' + day: day;
+        return year+month+day;
+    };
     
     $scope.addNewArticle = function (name) {
         pageViews.query({
             project:    "sv.wikipedia",
             article:    name,
-            from:       "20160101",
-            to:         "20160401",
+            from:       $scope.dateToStr($scope.dateFrom),
+            to:         $scope.dateToStr($scope.dateTo),
         }).$promise.then(function(result) {
             result.article.name = name;
             $scope.groups.push({
@@ -42,6 +51,16 @@ module.exports = function($scope, pageViews, searchService, chartService) {
         };
      
     };
+
+    function reloadAll() {
+        var g = angular.copy($scope.groups, g);
+        $scope.groups = [];
+        chart.clearDataset();
+        angular.forEach(g, function (val, key) {
+            $scope.addNewArticle(val.name);
+        });
+        chart.setDateRange($scope.dateFrom, $scope.dateTo);
+    }
 
     $scope.projects = [ // TODO: Proper externalization and language checking
         {name: "Wikipedia",     url: "$lang$.wikipedia",    multilang: true},
@@ -133,6 +152,9 @@ module.exports = function($scope, pageViews, searchService, chartService) {
         opened: false
     };
 
+
+    $scope.$watch('dateFrom', reloadAll);
+    $scope.$watch('dateTo', reloadAll);
 
     function getDayClass(data) {
         var date = data.date,

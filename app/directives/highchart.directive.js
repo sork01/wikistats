@@ -35,10 +35,17 @@ module.exports = function(chartService)
 
             function addSeries() {
                 var set = scope.chartModel.getLatest();
-                $(element).highcharts().addSeries({
+                var chart = $(element).highcharts();
+                if(set == null) {
+                    while(chart.series.length > 0)
+                        chart.series[0].remove(true);
+                    return;
+                }
+                chart.addSeries({
                     data: set.values,
                     name: set.name
                 });
+                chart.xAxis[0].setCategories( scope.chartModel.getXAxisValues());
 
             }
             

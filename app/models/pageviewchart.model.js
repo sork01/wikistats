@@ -90,6 +90,12 @@ module.exports = function()
     {
         delete this.datasets[name];
     };
+
+    this.clearDataset = function()
+    {
+        this.datasets = {};
+        this.latest = null;
+    };
     
     /**
      * Retrieve all datasets.
