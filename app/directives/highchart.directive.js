@@ -5,20 +5,11 @@ module.exports = function(chartService)
         
         link: function(scope, element, attrs)
         {
-            function updateChart()
-            {
-                var series = [];
-                var datasets = scope.chartModel.getDatasets();
-                
-                for (var name in datasets)
-                {
-                    series.push({animation: false, name: name, data: datasets[name]});
-                }
-                
-                // will running this again and again properly (no leaks) replace the stuff
-                // that existed previously? are there more effecient ways to control
-                // highcharts? ("restarting" is probably the least efficient way!)
-                $(function () { 
+            scope.chartModel = chartService.getChart(attrs.chartName);
+            // will running this again and again properly (no leaks) replace the stuff
+            // that existed previously? are there more effecient ways to control
+            // highcharts? ("restarting" is probably the least efficient way!)
+            $(function () { 
                     $(element).highcharts({
                         chart: {
                             type: 'line',
@@ -38,13 +29,21 @@ module.exports = function(chartService)
                                 text: 'Views'
                             },
                         },
-                        series: series
+                        series: []
                     });
+            });
+
+            function addSeries() {
+                var set = scope.chartModel.getLatest();
+                $(element).highcharts().addSeries({
+                    data: set.values,
+                    name: set.name
                 });
+
             }
             
             scope.chartModel = chartService.getChart(attrs.chartName);
-            scope.$watch('chartModel', updateChart, true);
+            scope.$watch('chartModel', addSeries, true);
         }
     };
 };

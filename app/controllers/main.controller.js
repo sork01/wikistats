@@ -3,6 +3,12 @@ var pageviewChartModel = require('../models/pageviewchart.model');
 module.exports = function($scope, pageViews, searchService, chartService) {
 
     chart = chartService.createChart('myChart', new pageviewChartModel());
+
+    chart.setDateRange(
+        new Date(Date.parse("2016-01-01")), 
+        new Date(Date.parse("2016-04-01"))
+    );
+
     $scope.groups = [];
 
     $scope.search = {
@@ -27,10 +33,7 @@ module.exports = function($scope, pageViews, searchService, chartService) {
                 name: name
             });
             chart.addDataset(name, result.article.views);
-            chart.setDateRange(
-                    new Date(Date.parse("2016-01-01")), 
-                    new Date(Date.parse("2016-04-01"))
-            );
+
         });
 
         $scope.search = {

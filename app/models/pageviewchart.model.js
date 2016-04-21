@@ -20,6 +20,7 @@ module.exports = function()
      * Y-value data sets.
      */
     this.datasets = {};
+    this.latest = null;
     
     // "constructor" begins
     
@@ -70,7 +71,13 @@ module.exports = function()
      */
     this.addDataset = function(name, yValues)
     {
+        this.latest = {name: name, values: yValues};
         this.datasets[name] = yValues;
+    };
+
+    this.getLatest = function()
+    {
+        return this.latest;
     };
     
     /**
