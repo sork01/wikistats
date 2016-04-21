@@ -8,6 +8,7 @@
     "test": "test"
   },
   "dependencies": {
+    "highcharts": "^4.2.4",
     "jquery": "^2.2.3",
     "angular": "^1.5.3",
     "angular-resource": "^1.5.3",
