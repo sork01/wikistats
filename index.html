@@ -128,39 +128,58 @@
         
         var app = angular.module('theApp', []);
         
-        app.controller('mainController', ['$rootScope', '$scope', function($rootScope, $scope)
+        app.controller('mainController', ['$scope', 'chartsService', function($scope, chartsService)
         {
-            $rootScope.test = new pageviewsChartModel();
-            $rootScope.test.addDataset('Cow', [1,2,3,4,5,6,7]);
-            
             $scope.addChickens = function()
             {
                 console.log('hello from addChickens');
                 
-                $rootScope.test.addDataset('Chicken', [3,4,5,6,7,8,9]);
+                chartsService.getChart('test').addDataset('Chicken', [3,4,5,6,7,8,9]);
             };
             
             $scope.delChickens = function()
             {
                 console.log('hello from delChickens');
                 
-                $rootScope.test.removeDataset('Chicken');
+                chartsService.getChart('test').removeDataset('Chicken');
             };
         }]);
         
-        app.directive('highchart', ['$rootScope', function($rootScope)
+        app.controller('chartController', ['chartsService', function(chartsService)
         {
-            //console.log('hello from highchart directive');
+            console.log('hello from chartcontroller');
+            
+            var chart = chartsService.createChart('test', new pageviewsChartModel());
+            chart.addDataset('Cow', [1,2,3,4,5,6,7]);
+        }]);
+        
+        app.service('chartsService', function()
+            {
+                this.charts = {};
+                
+                this.createChart = function(name, model)
+                {
+                    this.charts[name] = model;
+                    return model;
+                };
+                
+                this.getChart = function(name)
+                {
+                    return this.charts[name];
+                };
+            });
+        
+        app.directive('highchart', ['chartsService', function(chartsService)
+        {
+            console.log('hello from highchart directive');
             
             return {
                 restrict: 'E',
                 
-                scope: {
-                    chartName: '@',
-                },
-                
                 link: function(scope, element, attrs)
                 {
+                    console.log('hello from highchart directive link');
+                    
                     function updateChart()
                     {
                         console.log('hello from updateChart');
@@ -198,7 +217,7 @@
                         });
                     };
                     
-                    scope.chartModel = $rootScope[scope.chartName];
+                    scope.chartModel = chartsService.getChart(attrs.chartName);
                     scope.$watch('chartModel', updateChart, true);
                 }
             }
@@ -209,6 +228,6 @@
     <body ng-app="theApp" ng-controller="mainController">
         <input type="button" ng-click="addChickens()" />
         <input type="button" ng-click="delChickens()" />
-        <highchart style="display:block;" chart-name="test" />
+        <highchart style="display:block;" chart-name="test" ng-controller="chartController" />
     </body>
 </html>
