@@ -11,21 +11,18 @@ module.exports = function($resource) {
                 var proj    = obj.items[0].project;
                 var from    = obj.items[0].timestamp;
                 var to      = obj.items[obj.items.length -1].timestamp;
+                var v = [];
 
                 angular.forEach(obj.items, function(val, key) {
-                    delete val.access;
-                    delete val.agent;
-                    delete val.granularity;
-                    delete val.article;
-                    delete val.project;
-                });
+                    v.push(val.views);
+                 });
 
                 return { article: {
                     name:       name, 
                     project:    proj, 
                     fromdate:   from, 
                     todate:     to, 
-                    views:      obj.items
+                    views:      v
                 }}; 
             }    
         }

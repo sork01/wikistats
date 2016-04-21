@@ -1,4 +1,9 @@
-module.exports = function($scope, pageViews, searchService) {
+var pageviewChartModel = require('../models/pageviewchart.model');
+
+module.exports = function($scope, pageViews, searchService, chartService) {
+
+    chart = chartService.createChart('myChart', new pageviewChartModel());
+    $scope.groups = [];
 
     $scope.search = {
         str: "",
@@ -8,29 +13,32 @@ module.exports = function($scope, pageViews, searchService) {
     $scope.chart = {
         selected: "Line"
     };
+    
+    $scope.addNewArticle = function (name) {
+        pageViews.query({
+            project:    "sv.wikipedia",
+            article:    name,
+            from:       "20160101",
+            to:         "20160401",
+        }).$promise.then(function(result) {
+            result.article.name = name;
+            $scope.groups.push({
+                articles:[result.article],
+                name: name
+            });
+            chart.addDataset(name, result.article.views);
+            chart.setDateRange(
+                    new Date(Date.parse("2016-01-01")), 
+                    new Date(Date.parse("2016-04-01"))
+            );
+        });
 
-    $scope.groups = [
-        { 'name' : 'Dogs',
-            'breeds': [
-            'Labrador',
-            'Retriever',
-            'Boxer',
-            'Cocker Spaniel'
-        ]},
-        { 'name': 'Cats',
-            'breeds': [
-            'Russian blue',
-            'Ragdoll',
-            'Norwegian Forest Cat'
-        ]},
-        { 'name': 'Fish',
-            'breeds': [
-            'Salmon',
-            'Pike',
-            'Trout',
-            'Bass'
-        ]}
-    ];
+        $scope.search = {
+            str: "",
+            list: [] 
+        };
+     
+    };
 
     $scope.projects = [ // TODO: Proper externalization and language checking
         {name: "Wikipedia",     url: "$lang$.wikipedia",    multilang: true},
@@ -70,15 +78,6 @@ module.exports = function($scope, pageViews, searchService) {
         });
     });
 
-    pageViews.query({
-        project:    "en.wikipedia",
-        article:    "Dog",
-        from:       "20160101",
-        to:         "20160110",
-    }).$promise.then(function(result) {
-        console.log(result.article);
-    });
-    
     // DATEPICKER
     // TODO: Move everything related to bottom bar date pickers
     // to separate controller
@@ -130,6 +129,7 @@ module.exports = function($scope, pageViews, searchService) {
     $scope.popupTo = {
         opened: false
     };
+
 
     function getDayClass(data) {
         var date = data.date,

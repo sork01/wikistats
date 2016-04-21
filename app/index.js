@@ -1,9 +1,11 @@
 'use strict';
 
+require('jquery');
 require('angular');
 require('angular-resource');
 require('angular-ui-bootstrap');
 require('angular-animate');
+
 
 var pageViews = require('./services/pageviews.service');
 
@@ -16,5 +18,9 @@ wikiservices.factory('searchService', ['$http', searchService]);
 var MainController = require('./controllers/main.controller');
 var wikistats = angular.module('wikistats', ['ngAnimate', 'wikiservices', 'ui.bootstrap']);
 
-wikistats.controller('MainController', ['$scope','pageViews', 'searchService', MainController]);
+var chartService = require('./services/chart.service');
+var highchartDirective = require('./directives/highchart.directive');
+wikistats.service('chartService', chartService);
+wikistats.directive('highchart', ['chartService', highchartDirective]);
 
+wikistats.controller('MainController', ['$scope','pageViews', 'searchService', 'chartService', MainController]);

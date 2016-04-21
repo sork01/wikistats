@@ -31,7 +31,9 @@ gulp.task('copyvendor', function() {
     return gulp.src(['node_modules/angular/**/*', 
                     'node_modules/angular-resource/**/*',
                     'node_modules/bootstrap-css-only/css/**/*',
-                    'node_modules/angular-ui-bootstrap/dist/**/*'])
+                    'node_modules/angular-ui-bootstrap/dist/**/*',
+                    'node_modules/highcharts/highcharts.js',
+                    'node_modules/jquery/dist/*'])
         .pipe(gulp.dest('dist/vendor'))
 })
 
