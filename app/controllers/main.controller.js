@@ -24,7 +24,6 @@ module.exports = function($scope, pageViews, searchService, chartService) {
         var month = date.getMonth() + 1 + '';
         var year = date.getFullYear() + '';
         var month = month < 10 ? '0' + month: month;
-        console.log(month);
         var day = day < 10 ? '0' + day: day;
         return year+month+day;
     };
@@ -85,20 +84,15 @@ module.exports = function($scope, pageViews, searchService, chartService) {
         $scope.chosen[dropdown] = name;
     };
 
-    $scope.$watch('search.str.length', function () {
-        var searchstr = $scope.search.str;
-        if(searchstr.length <= 0) {
-            $scope.search.list = [];
-            return;
-        }
-        searchService.query({
+    $scope.searchArticle = function (str) {
+        var searchstr = str;
+        return searchService.query({
             namespace: 'sv.wikipedia', //TODO
             str: searchstr
-        }).then(function(data) {
-            if($scope.search.str == searchstr)
-                $scope.search.list = data.data;
+        }).then(function(response) {
+            return response.data.url;
         });
-    });
+    };
 
     // DATEPICKER
     // TODO: Move everything related to bottom bar date pickers

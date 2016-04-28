@@ -44,13 +44,12 @@
                     </div>
                 </div> 
                 <div class="row">
-                    <input type="text" style="width: 100%; border-radius: 0px" class="form-control" data-ng-model="search.str" data-ng-model-options="{debounce: 200}" placeholder="Search for article...">
+                    <input type="text" style="width: 100%; border-radius: 0px" class="form-control" data-ng-model="search.str" typeahead-wait-ms="200" uib-typeahead="article for article in searchArticle($viewValue)" placeholder="Search for article..." typeahead-on-select="addNewArticle($item)">
                 </div>
                 <div class="row"><!-- TODO: CSS and pretty things up -->
-                    <div class="list-group">
-                        <a href="#" class="list-group-item" data-ng-click="addNewArticle(s)" data-ng-repeat="s in search.list">
-                            {{ s }}
-                        </a>
+                    <i ng-show="loadingLocations" class="glyphicon glyphicon-refresh"></i>
+                    <div ng-show="noResults">
+                        <i class="glyphicon glyphicon-remove"></i> No Results Found
                     </div>
                 </div>
                 </br>
