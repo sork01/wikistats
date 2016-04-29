@@ -15,22 +15,24 @@
 
 .open {
     border-color:#545454!important;
-    buttonbackground-color:#747474!important;
+    background-color:#747474!important;
 }
 
 div#background {
     background:#EEE;
 }
 
-div#bottom-col {
+div#bottom-right-row {
     bottom:0;
+    height:15%;
+    padding-left:15px;
+    padding-right:10px;
     position:absolute;
     width:100%;
 }
 
 div#chart {
     background-color:#FFF;
-    border-radius:5px;
     box-shadow:0 0 8px 2px rgba(120,120,120,1);
     height:100%;
     padding:15px;
@@ -38,7 +40,7 @@ div#chart {
 }
 
 div#left-col {
-    background:#b8b8b8;
+    background:#636466;
 }
 
 highchart {
@@ -54,6 +56,11 @@ html,body {
 input {
     border-radius:0;
     width:100%;
+}
+
+.navbar {
+    margin-bottom: 0em !important; 
+    box-shadow: 0 0 8px 2px rgba(120,120,120,1) !important;
 }
 
 span.caret {
