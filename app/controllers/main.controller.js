@@ -5,8 +5,7 @@ module.exports = function($scope, pageViews, searchService, chartService) {
     chart = chartService.createChart('myChart', new pageviewChartModel());
     $scope.dateFrom = new Date(Date.parse("2016-01-01"));
     $scope.dateTo = new Date(Date.parse("2016-04-01"));
-    chart.setDateRange($scope.dateFrom, $scope.dateTo);
-
+    chart.getModel().setDateRange($scope.dateFrom, $scope.dateTo);
 
     $scope.groups = [];
 
@@ -16,9 +15,14 @@ module.exports = function($scope, pageViews, searchService, chartService) {
     };
     
     $scope.chart = {
-        selected: "Line"
+        selected: 'line'
     };
-
+    
+    $scope.$watch('chart.selected', function()
+    {
+        chart.setType($scope.chart.selected);
+    });
+    
     $scope.dateToStr = function(date) {
         var day = date.getDate() + '';
         var month = date.getMonth() + 1 + '';
@@ -40,7 +44,7 @@ module.exports = function($scope, pageViews, searchService, chartService) {
                 articles:[result.article],
                 name: name
             });
-            chart.addDataset(name, result.article.views);
+            chart.getModel().addDataset(name, result.article.views);
 
         });
 
@@ -54,11 +58,11 @@ module.exports = function($scope, pageViews, searchService, chartService) {
     function reloadAll() {
         var g = angular.copy($scope.groups, g);
         $scope.groups = [];
-        chart.clearDataset();
+        chart.getModel().clearDatasets();
         angular.forEach(g, function (val, key) {
             $scope.addNewArticle(val.name);
         });
-        chart.setDateRange($scope.dateFrom, $scope.dateTo);
+        chart.getModel().setDateRange($scope.dateFrom, $scope.dateTo);
     }
 
     $scope.projects = [ // TODO: Proper externalization and language checking

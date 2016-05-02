@@ -82,9 +82,9 @@
 
                             <div class="collapse navbar-collapse" id="top-bar-collapse" style="padding-right: 0">
                                 <ul class="nav navbar-nav">
-                                    <li ng-model="chart.selected" uib-btn-radio="'Line'"><a>Line chart</a></li>
-                                    <li ng-model="chart.selected" uib-btn-radio="'Pie'"><a>Pie chart</a></li>
-                                    <li ng-model="chart.selected" uib-btn-radio="'Bar'"><a>Bar chart</a></li> 
+                                    <li ng-model="chart.selected" uib-btn-radio="'line'"><a>Line chart</a></li>
+                                    <li ng-model="chart.selected" uib-btn-radio="'pie'"><a>Pie chart</a></li>
+                                    <li ng-model="chart.selected" uib-btn-radio="'column'"><a>Bar chart</a></li> 
                                     <li uib-dropdown class="dropdown">
                                         <a href="#" uib-dropdown-toggle data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Export as <span class="caret"></span></a>
                                         <ul class="dropdown-menu" uib-dropdown-menu role="menu" style="min-width: 100%"> 
@@ -115,7 +115,7 @@
                 <div class="row" style="height: 70%;"> <!-- CHART GOES HERE -->
                     <div class="col-xs-12 fill-col">
                         <div id="chartdiv" style="border-radius: 5px;box-shadow: 0px 0px 8px 2px rgba(120,120,120,1); padding: 15px; height: 100%; width: 100%; background-color: white">
-                           <highchart data-chart-name="myChart" data-ng-controller="MainController" style="height: 95%; width: 95%; position: absolute"/>
+                           <highchart data-chart-name="myChart" data-chart-type="line" style="height: 95%; width: 95%; position: absolute"/>
                         </div>
                     </div>
                 </div>
