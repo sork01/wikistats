@@ -40,7 +40,7 @@ module.exports = function(chartService)
                 
                 init: function(chart)
                 {
-                    chart.xAxis[0].setCategories(['']);
+                    chart.xAxis[0].setCategories([]);
                     chart.addSeries({name: 'Total Views', data: []});
                 },
                 
@@ -60,14 +60,16 @@ module.exports = function(chartService)
                 
                 init: function(chart)
                 {
-                    chart.xAxis[0].setCategories(['']);
+                    chart.xAxis[0].setCategories([]);
+                    chart.addSeries({name: 'Total Views'});
                 },
                 
                 add: function(chart, datasets, name)
                 {
-                    chart.addSeries({
+                    console.log(name);
+                    chart.series[0].addPoint({
                         name: name,
-                        data: [datasets[name].reduce(function(a, b) { return a + b; }, 0)]
+                        y: datasets[name].reduce(function(a, b) { return a + b; }, 0)
                     });
                 },
                 
@@ -100,7 +102,7 @@ module.exports = function(chartService)
                     $(element).highcharts({
                         chart: {
                             type: scope.chartSeriesAdapter.type,
-                            animation: false
+                            animation: true
                         },
                         credits: {
                             enabled: false
