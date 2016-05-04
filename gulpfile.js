@@ -1,5 +1,5 @@
 var gulp        = require('gulp'),
-    sass        = require('gulp-sass'),
+//    sass        = require('gulp-sass'),
     browserSync = require('browser-sync').create(),
     uglify      = require('gulp-uglify'),
     sourcemaps  = require('gulp-sourcemaps'),
@@ -33,6 +33,8 @@ gulp.task('copyvendor', function() {
                     'node_modules/angular-animate/**/*',
                     'node_modules/bootstrap-css-only/css/**/*',
                     'node_modules/angular-ui-bootstrap/dist/**/*',
+                    'node_modules/highcharts-exporting/exporting.js',
+                    'node_modules/highcharts-offline-exporting/offline-exporting.js',
                     'node_modules/highcharts/highcharts.js',
                     'node_modules/jquery/dist/*'])
         .pipe(gulp.dest('dist/vendor'))
@@ -53,7 +55,7 @@ gulp.task('watch', ['browserSync', 'default'],  function(){
 
 gulp.task('css', function() {
     return gulp.src('assets/scss/**/*.s*ss') 
-        .pipe(sass())
+ //       .pipe(sass())
         .pipe(concat('styles.min.css'))
         .pipe(minifyCSS())
         .pipe(gulp.dest('dist/assets/css'))

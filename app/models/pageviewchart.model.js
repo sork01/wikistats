@@ -41,7 +41,8 @@ module.exports = function()
         ['daterangechanged'],
         ['datasetadded'],
         ['datasetremoved'],
-        ['datasetscleared']
+        ['datasetscleared'],
+        ['exportclicked']
     ];
     
     // "constructor" ends
@@ -172,7 +173,18 @@ module.exports = function()
         this.datasets = {};
         this.dispatchEvent('datasetscleared', null);
     };
-    
+
+    /**
+     * Export the graph
+     *
+     * @param String mime-type of the export format
+     * @return void
+     */
+    this.exportgraph = function(mime)
+    {
+        this.dispatchEvent('exportclicked', mime);
+    };
+
     /**
      * Retrieve a datasets.
      *

@@ -8,6 +8,8 @@
     <script src="/vendor/angular.min.js"></script>
     <script src="/vendor/angular-resource.min.js"></script>
     <script src="/vendor/angular-animate.min.js"></script>
+    <script src="vendor/exporting.js"></script>
+    <script src="vendor/offline-exporting.js"></script>
     <script src="/assets/js/app.min.js"></script>
     <script src="/vendor/ui-bootstrap-tpls.js"></script>
     <link rel="stylesheet" href="/assets/css/styles.min.css">
@@ -88,10 +90,11 @@
                                     <li uib-dropdown class="dropdown">
                                         <a href="#" uib-dropdown-toggle data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Export as <span class="caret"></span></a>
                                         <ul class="dropdown-menu" uib-dropdown-menu role="menu" style="min-width: 100%"> 
-                                            <li><a href="#">SVG</a></li>
-                                            <li><a href="#">PNG</a></li>
-                                            <li><a href="#">JPG</a></li>
-                                            <li><a href="#">CSV</a></li>
+                                            <li><a href="#" data-ng-click="exportgraph('image/svg+xml')">SVG</a></li>
+                                            <li><a href="#" data-ng-click="exportgraph('application/pdf')">PNG</a></li>
+                                            <li role="separator" class="divider"></li>
+                                            <li><a href="#" data-ng-click="exportgraph('print')">Print...</a></li>
+
                                         </ul>
                                     </li>
                                 </ul>
