@@ -1,4 +1,3 @@
-// *neode.command* setgo cd /home/lur/Desktop/wikistats; gulp && xdotool key --window 0x200001e F5
 module.exports = function(chartService)
 {
     return {
@@ -106,6 +105,13 @@ module.exports = function(chartService)
                         },
                         credits: {
                             enabled: false
+                        },
+                        plotOptions: {
+                            pie: {
+                                dataLabels: {
+                                    format: '{point.name}: {point.percentage:.1f} %'
+                                }
+                            }
                         },
                         title: {
                             text: 'Page Views'
