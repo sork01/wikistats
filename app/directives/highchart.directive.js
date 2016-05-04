@@ -116,9 +116,8 @@ module.exports = function(chartService)
                         tooltip: {
                             shared: true,
                             crosshairs: {
-                                width: 2,
-                                color: 'gray',
-                                dashStyle: 'dot'
+                                width: 1,
+                                color: 'rgba(0,0,0,0.2)'
                             }
                         },
                         title: {
