@@ -122,7 +122,13 @@ module.exports = function(chartService)
                                 text: 'Views'
                             }
                         },
+
                         exporting: {
+                            buttons: {
+                                contextButton: {
+                                    enabled: false
+                                }
+                            },
                             fallbackToExportServer: false
                         }
                         // series: configured a bit later by chartSeriesAdapter.init/add
@@ -160,7 +166,9 @@ module.exports = function(chartService)
                         chart.exportChartLocal({
                             type: mime,
                             filename: 'chart',
-                            width: 1280
+                            //width: 1280,
+                            sourceWidth: 1280,
+                            sourceHeight: 720
                         });
                     }
                 });
