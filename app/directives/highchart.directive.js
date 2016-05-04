@@ -115,7 +115,11 @@ module.exports = function(chartService)
                         },
                         tooltip: {
                             shared: true,
-                            crosshairs: true
+                            crosshairs: {
+                                width: 2,
+                                color: 'gray',
+                                dashStyle: 'dot'
+                            }
                         },
                         title: {
                             text: 'Page Views'
