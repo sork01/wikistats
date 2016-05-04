@@ -113,6 +113,9 @@ module.exports = function(chartService)
                                 }
                             }
                         },
+                        tooltip: {
+                            shared: true
+                        },
                         title: {
                             text: 'Page Views'
                         },
