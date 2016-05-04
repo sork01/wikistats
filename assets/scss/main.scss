@@ -22,15 +22,6 @@ div#background {
     background:#EEE;
 }
 
-div#bottom-right-row {
-    bottom:0;
-    height:15%;
-    padding-left:15px;
-    padding-right:10px;
-    position:absolute;
-    width:100%;
-}
-
 div#chart {
     background-color:#FFF;
     box-shadow:0 0 8px 2px rgba(120,120,120,1);
@@ -39,8 +30,21 @@ div#chart {
     width:100%;
 }
 
+div#date-col {
+    box-shadow:0 0 8px 2px rgba(120,120,120,1);
+    background-color: #F9F9F9;
+    height: 100%;
+    padding: 15px;
+}
+
 div#left-col {
     background:#636466;
+}
+
+div#search {
+    float: none;
+    margin: 0 auto;
+    width: 99%;
 }
 
 highchart {
@@ -59,8 +63,14 @@ input {
 }
 
 .navbar {
-    margin-bottom: 0em !important; 
+    margin-bottom: 0em !important;
     box-shadow: 0 0 8px 2px rgba(120,120,120,1) !important;
+}
+
+.row-center {
+    float: none;
+    margin: 0 auto !important;
+    width: 99%;
 }
 
 span.caret {

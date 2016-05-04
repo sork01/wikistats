@@ -42,8 +42,9 @@
                             </ul>
                         </div>
                     </div>
-                </div> 
-                <div class="row">
+                </div>
+                </br>
+                <div class="row row-center">
                     <input type="text" class="form-control" data-ng-model="search.str" typeahead-wait-ms="200" uib-typeahead="article for article in searchArticle($viewValue)" placeholder="Search for article..." typeahead-on-select="addNewArticle($item)">
                 </div>
                 <div class="row">
@@ -84,10 +85,10 @@
                                 <ul class="nav navbar-nav">
                                     <li ng-model="chart.selected" uib-btn-radio="'Line'"><a>Line chart</a></li>
                                     <li ng-model="chart.selected" uib-btn-radio="'Pie'"><a>Pie chart</a></li>
-                                    <li ng-model="chart.selected" uib-btn-radio="'Bar'"><a>Bar chart</a></li> 
+                                    <li ng-model="chart.selected" uib-btn-radio="'Bar'"><a>Bar chart</a></li>
                                     <li uib-dropdown class="dropdown">
                                         <a href="#" uib-dropdown-toggle data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Export as<span class="caret"></span></a>
-                                        <ul class="dropdown-menu" uib-dropdown-menu role="menu"> 
+                                        <ul class="dropdown-menu" uib-dropdown-menu role="menu">
                                             <li><a href="#">SVG</a></li>
                                             <li><a href="#">PNG</a></li>
                                             <li><a href="#">JPG</a></li>
@@ -119,27 +120,30 @@
                         </div>
                     </div>
                 </div>
-                <div id="bottom-right-row" class="row">
-                    <div class="col-xs-12 fill-col bottom-bar" style="box-shadow: 0 0 8px 2px rgba(120,120,120,1)">
-                    </br>
-                        <div class="col-md-6">
-                            Start Date
-                            <p class="input-group">
-                                <input type="text" class="form-control" uib-datepicker-popup="{{format}}" data-ng-model="dateFrom" is-open="popupFrom.opened" datepicker-options="dateOptions" data-ng-required="true" close-text="Close" alt-input-formats="altInputFormats" />
-                                <span class="input-group-btn">
-                                    <button type="button" class="btn btn-default" data-ng-click="openFrom()"><i class="glyphicon glyphicon-calendar"></i></button> <!-- TODO: Get a calendar icon -->
-                                </span>
-                            </p>
-                        </div>
+                <div class="row" style="height: 17.5%; bottom: 0; position: absolute; margin-right: 0px">
+                    <div class="col-xs-12 fill-col">
+                        <div id="date-col">
+                            <div class="row">
+                                <div class="col-xs-6">
+                                    Start Date
+                                    <p class="input-group">
+                                        <input type="text" class="form-control" uib-datepicker-popup="{{format}}" data-ng-model="dateFrom" is-open="popupFrom.opened" datepicker-options="dateOptions" data-ng-required="true" close-text="Close" alt-input-formats="altInputFormats" />
+                                        <span class="input-group-btn">
+                                            <button type="button" class="btn btn-default" data-ng-click="openFrom()"><i class="glyphicon glyphicon-calendar"></i></button> <!-- TODO: Get a calendar icon -->
+                                        </span>
+                                    </p>
+                                </div>
 
-                        <div class="col-md-6">
-                            End Date
-                            <p class="input-group">
-                                <input type="text" class="form-control" uib-datepicker-popup data-ng-model="dateTo" is-open="popupTo.opened" datepicker-options="dateOptions" data-ng-required="true" close-text="Close" />
-                                <span class="input-group-btn">
-                                    <button type="button" class="btn btn-default" data-ng-click="openTo()"><i class="glyphicon glyphicon-calendar"></i></button> <!-- TODO: Get a calendar icon -->
-                                </span>
-                            </p>
+                                <div class="col-xs-6">
+                                    End Date
+                                    <p class="input-group">
+                                        <input type="text" class="form-control" uib-datepicker-popup data-ng-model="dateTo" is-open="popupTo.opened" datepicker-options="dateOptions" data-ng-required="true" close-text="Close" />
+                                        <span class="input-group-btn">
+                                            <button type="button" class="btn btn-default" data-ng-click="openTo()"><i class="glyphicon glyphicon-calendar"></i></button> <!-- TODO: Get a calendar icon -->
+                                        </span>
+                                    </p>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
