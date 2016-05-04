@@ -114,7 +114,8 @@ module.exports = function(chartService)
                             }
                         },
                         tooltip: {
-                            shared: true
+                            shared: true,
+                            crosshairs: true
                         },
                         title: {
                             text: 'Page Views'
