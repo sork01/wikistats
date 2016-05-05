@@ -168,6 +168,9 @@ module.exports = function($scope, pageViews, searchService, chartService, $http,
             "name": "English (US)",
             "code": "en-US"
         }, {
+            "name": "Português (BR)",
+            "code": "pt-BR"
+        }, {
             "name": "Svenska",
             "code": "sv-SE",
         }
