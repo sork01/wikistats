@@ -1,4 +1,7 @@
 module.exports = function($translateProvider) {
+
+    $translateProvider.useSanitizeValueStrategy('sanitize');
+
     $translateProvider.useLoaderCache(true);
     
     $translateProvider.translations('en-US', { //Prevent initial flicker on load
