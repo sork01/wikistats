@@ -1,0 +1,15 @@
+{
+    "ADD_ARTICLE":  "Adicionnez une article...",
+    "LINE_CHART":   "Diagramme à ligne",
+    "PIE_CHART":    "Diagramme circulaire",
+    "COLUMN_CHART": "Diagramme à bandes",
+    "EXPORT_AS":    "Exportez comme...",
+    "PRINT":        "Imprimez...",
+    "LANGUAGE":     "Langue",
+    "START_DATE":   "Date de début",
+    "END_DATE":     "Date de fin",
+    "ARTICLE":      "Article",
+    "LINK":         "Lien",
+    "PROJECT":      "Projet",
+    "GRANULARITY":  "Granularité"
+}
