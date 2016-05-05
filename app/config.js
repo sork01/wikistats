@@ -1,16 +1,14 @@
 module.exports = function($translateProvider) {
 
-    $translateProvider.useSanitizeValueStrategy('sanitize');
+    $translateProvider.useSanitizeValueStrategy('escape');
 
     $translateProvider.useLoaderCache(true);
     
     $translateProvider.translations('en-US', { //Prevent initial flicker on load
         'ADD_ARTICLE': 'Add article...',
-
         'LINE_CHART': 'Line chart',
         'PIE_CHART': 'Pie chart',
         'COLUMN_CHART': 'Column chart',
-
         'EXPORT_AS': 'Export as...',
         'PRINT': 'Print...',
         'LANGUAGE': 'Language',
@@ -18,7 +16,8 @@ module.exports = function($translateProvider) {
         'END_DATE': 'End date',
         'ARTICLE': 'Article',
         'LINK': 'Link',
-        'PROJECT': 'Project'
+        'PROJECT': 'Project',
+        'GRANULARITY':	'Granularity'
     });
     
     $translateProvider.useStaticFilesLoader({
