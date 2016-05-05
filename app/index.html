@@ -45,7 +45,7 @@
                 </div>
                 </br>
                 <div class="row row-center std-shadow">
-                    <input type="text" class="form-control" data-ng-model="search.str" typeahead-wait-ms="200" uib-typeahead="article for article in searchArticle($viewValue)" placeholder="Search for article..." typeahead-on-select="addNewArticle($item)">
+                    <input type="text" class="form-control" data-ng-model="search.str" typeahead-wait-ms="200" uib-typeahead="article for article in searchArticle($viewValue)" placeholder="Add article..." typeahead-on-select="addNewArticle($item)">
                 </div>
                 <div class="row">
                     <i ng-show="loadingLocations" class="glyphicon glyphicon-refresh"></i>
@@ -120,7 +120,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="row" style="height: 17.5%; bottom: 0; position: absolute; margin-right: 0px">
+                <div class="row" style="height: 17.5%; width: 100%; bottom: 0; position: absolute; margin-right: 0px">
                     <div class="col-xs-12 fill-col">
                         <div id="date-col" class="std-shadow">
                             <div class="row">
