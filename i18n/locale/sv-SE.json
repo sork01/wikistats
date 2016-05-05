@@ -1,7 +1,7 @@
 {
     "ADD_ARTICLE":	"Lägg till artikel...",
     "LINE_CHART":	"Linjediagram",
-    "PIE_CHART":	"Pajdiagram",
+    "PIE_CHART":	"Cirkeldiagram",
     "COLUMN_CHART":	"Kolumndiagram",
     "EXPORT_AS":    "Exportera som...",
     "PRINT":        "Printa...",
