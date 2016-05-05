@@ -72,3 +72,8 @@ span.caret {
     box-shadow: 0 3px 0 0 rgba(0,0,0,.1);
 }
 
+.scrollable-menu {
+    height: auto;
+    max-height: 500px;
+    overflow-x: hidden;
+}

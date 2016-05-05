@@ -37,8 +37,10 @@
                             <button id="project-dd-button" type="button" class="btn btn-default dropdown-toggle" uib-dropdown-toggle ng-disabled="disabled">
                                 {{chosen.lang.local | limitTo: 9}}{{chosen.lang.local.length > 9? '...' : '' }}<span class="caret"></span>
                             </button>
-                            <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="project-dd-button">
-                                <li role="menuitem" data-ng-repeat="lang in chosen.proj.languages">
+                            <ul class="dropdown-menu scrollable-menu" uib-dropdown-menu role="menu" aria-labelledby="project-dd-button">
+                                <input type="text" class="form-control" data-ng-model="languageFilter" data-ng-click="$event.stopPropagation()" ng-model-options="{debounce: 200}">
+                                <li role="separator" class="divider"></li>
+                                <li role="menuitem" data-ng-repeat="lang in chosen.proj.languages | filter:languageFilter">
                                     <a href="#" data-ng-click="changeChosen(lang, 'lang')">{{ lang.local }}</a>
                                 </li>
                             </ul>
