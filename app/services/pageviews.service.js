@@ -12,7 +12,7 @@ module.exports = function($resource) {
     }
     
     return {
-        query: function(input) {
+        query: function(input, thenfun) {
             var pure = {};
             angular.copy(input, pure);
 
@@ -20,45 +20,49 @@ module.exports = function($resource) {
             delete pure.lang;
             delete pure.fromDate;
             delete pure.toDate;
+            var art = { //Maybe its time to create a separate file for Articles
+                name:       input.article,
+                project:    input.projname, 
+                language:   input.lang,
+                fromdate:   input.fromStr + '00', 
+                todate:     input.toStr + '00', 
+                total:      0,
+                views:      [],
+                refresh: function(article, datefrom, dateto, callback) {
+                    pure.fromStr = dateToStr(datefrom) + '00';
+                    pure.todate = dateToStr(dateto) + '00';
+                    $resource(URL, {}, {
+                        query: {
+                            method: 'GET',
+                            isArray: false,
+                            transformResponse: function(data, headers) {
+                                var obj = angular.fromJson(data);
+                                article.fromdate = obj.items[0].timestamp;
+                                article.todate = obj.items[obj.items.length -1].timestamp;
+                                article.views = [];
+                                article.total = 0;
+                                var j = 0;
 
-            return $resource(URL, {}, {
-                query: {
-                    method: 'GET',
-                    isArray: false,
-                    transformResponse: function(data, headers) {
-                        var obj     = angular.fromJson(data);
-                        var name    = obj.items[0].article;
-                        var proj    = obj.items[0].project;
-                        var from    = obj.items[0].timestamp;
-                        var to      = obj.items[obj.items.length -1].timestamp;
-                        var total   = 0;
-                        var v = [];
-                        var j = 0;
-                        
-                        for(var i = input.fromDate; i <= input.toDate; i.setDate(i.getDate() + 1)) {
-                            if(obj.items[j].timestamp == dateToStr(i) + '00') {
-                                v.push(obj.items[j].views);
-                                total += obj.items[j].views;
-                                j++;
-                            }
-                            else {
-                                v.push(0);
-                            }
+                                for(var i = datefrom; i <= dateto; i.setDate(i.getDate() + 1)) {
+                                    if(obj.items[j].timestamp == dateToStr(i) + '00') {
+                                        article.views.push(obj.items[j].views);
+                                        article.total += obj.items[j].views;
+                                        j++;
+                                    }
+                                    else {
+                                        article.views.push(0);
+                                    }
+                                }
+
+                                return article; 
+                            }    
                         }
+                    }).query(pure).$promise.then(callback);
 
-                        return { article: {
-                            name:       name, 
-                            project:    input.projname, 
-                            language:   input.lang,
-                            fromdate:   from, 
-                            todate:     to, 
-                            views:      v,
-                            total:      total,
-                            link:       'https://' + proj + '.org/wiki/' + name
-                        }}; 
-                    }    
                 }
-            }).query(pure);
+            };
+            art.refresh(art, input.fromDate, input.toDate, thenfun);
+            return art;
         }
     };
 };

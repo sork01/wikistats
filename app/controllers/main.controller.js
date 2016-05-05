@@ -33,8 +33,7 @@ module.exports = function($scope, pageViews, searchService, chartService, $http,
     };
     
     $scope.addNewArticle = function (name) {
-        console.log($scope.chosen.proj);
-        pageViews.query({
+        var article = pageViews.query({
             project:    $scope.chosen.lang.wiki + '.' + $scope.chosen.proj.namespace,
             projname:   $scope.chosen.proj.proj,
             lang:       $scope.chosen.lang.local,
@@ -43,11 +42,10 @@ module.exports = function($scope, pageViews, searchService, chartService, $http,
             fromDate:      new Date($scope.dateFrom.getTime()),
             toStr:         $scope.dateToStr(new Date($scope.dateTo.getTime()+1)),
             toDate:        new Date($scope.dateTo.getTime() + 1)
-        }).$promise.then(function(result) {
-            result.article.name = name;
-            $scope.articles.push(result.article);
-            chart.getModel().addDataset(name, result.article.views);
+        }, function(result) {
+            chart.getModel().addDataset(result.name, result.views);
         });
+        $scope.articles.push(article);
 
         $scope.search = {
             str: "",
@@ -58,15 +56,15 @@ module.exports = function($scope, pageViews, searchService, chartService, $http,
     $scope.chosen = {};
 
     function reloadAll() {
-        /* TODO: rewrite //Emil
-        var g = angular.copy($scope.groups, g);
-        $scope.groups = [];
         chart.getModel().clearDatasets();
-        angular.forEach(g, function (val, key) {
-            $scope.addNewArticle(val.name);
-        });
         chart.getModel().setDateRange($scope.dateFrom, $scope.dateTo);
-        */
+        angular.forEach($scope.articles, function (val, key) {
+            val.refresh(val, new Date($scope.dateFrom), new Date($scope.dateTo),
+                function(result){
+                    chart.getModel().addDataset(result.name, result.views);
+                }
+            );
+        });
     }
    
     $http.get('projects.json').then(function (res) {
