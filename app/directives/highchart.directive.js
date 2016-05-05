@@ -113,6 +113,13 @@ module.exports = function(chartService)
                                 }
                             }
                         },
+                        tooltip: {
+                            shared: true,
+                            crosshairs: {
+                                width: 1,
+                                color: 'rgba(0,0,0,0.2)'
+                            }
+                        },
                         title: {
                             text: 'Page Views'
                         },
