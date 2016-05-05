@@ -23,4 +23,4 @@ var highchartDirective = require('./directives/highchart.directive');
 wikistats.service('chartService', chartService);
 wikistats.directive('highchart', ['chartService', highchartDirective]);
 
-wikistats.controller('MainController', ['$scope','pageViews', 'searchService', 'chartService', MainController]);
+wikistats.controller('MainController', ['$scope','pageViews', 'searchService', 'chartService', '$http', MainController]);

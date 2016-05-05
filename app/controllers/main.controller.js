@@ -1,6 +1,6 @@
 var pageviewChartModel = require('../models/pageviewchart.model');
 
-module.exports = function($scope, pageViews, searchService, chartService) {
+module.exports = function($scope, pageViews, searchService, chartService, $http) {
 
     chart = chartService.createChart('myChart', new pageviewChartModel());
     $scope.dateFrom = new Date(Date.parse("2016-01-01"));
@@ -34,7 +34,7 @@ module.exports = function($scope, pageViews, searchService, chartService) {
     
     $scope.addNewArticle = function (name) {
         pageViews.query({
-            project:    "sv.wikipedia",
+            project:    $scope.chosen.lang.wiki + '.' + $scope.chosen.proj.namespace,
             article:    name,
             from:       $scope.dateToStr($scope.dateFrom),
             to:         $scope.dateToStr($scope.dateTo),
@@ -54,6 +54,7 @@ module.exports = function($scope, pageViews, searchService, chartService) {
         };
      
     };
+    $scope.chosen = {};
 
     function reloadAll() {
         var g = angular.copy($scope.groups, g);
@@ -64,34 +65,20 @@ module.exports = function($scope, pageViews, searchService, chartService) {
         });
         chart.getModel().setDateRange($scope.dateFrom, $scope.dateTo);
     }
-
-    $scope.projects = [ // TODO: Proper externalization and language checking
-        {name: "Wikipedia",     url: "$lang$.wikipedia",    multilang: true},
-        {name: "Wikiversity",   url: "$lang$.wikiversity",  multilang: true},
-        {name: "Wikisource",    url: "$lang$.wikisource",   multilang: true},
-        {name: "Wikinews",      url: "$lang$.wikinews",     multilang: true},
-        {name: "Wikibooks",     url: "$lang$.wikibooks",    multilang: true},
-        {name: "Wikiquote",     url: "$lang$.wikiquote",    multilang: true},
-        {name: "Wikispecies",   url: "species.wikimedia",   multilang: false},
-        {name: "Wikivoyage",    url: "$lang$.wikivoyage",   multilang: true},
-        {name: "Wikidata",      url: "www.wikidata",        multilang: false},
-        {name: "Wikicommons",   url: "commons.wikimedia",   multilang: false},
-        {name: "Metawiki",      url: "meta.wikimedia",      multilang: false}
-    ];
-
-    $scope.chosen = { 
-        proj: $scope.projects[0].name,
-        lang: "Svenska"
-    };
+   
+    $http.get('projects.json').then(function (res) {
+        $scope.projects = res.data.projects;
+        $scope.chosen.proj = res.data.projects[0];
+        $scope.chosen.lang = res.data.projects[0].languages[0];
+    });
     
-    $scope.changeChosen = function(name, dropdown){
+    $scope.changeChosen = function(name, dropdown) {
         $scope.chosen[dropdown] = name;
     };
 
-    $scope.searchArticle = function (str) {
-        var searchstr = str;
+    $scope.searchArticle = function (searchstr) {
         return searchService.query({
-            namespace: 'sv.wikipedia', //TODO
+            namespace: $scope.chosen.lang.wiki + '.' + $scope.chosen.proj.namespace,
             str: searchstr
         }).then(function(response) {
             return response.data.url;
