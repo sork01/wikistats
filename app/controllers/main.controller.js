@@ -7,7 +7,7 @@ module.exports = function($scope, pageViews, searchService, chartService, $http,
     $scope.dateTo = new Date(Date.parse("2016-04-01"));
     chart.getModel().setDateRange($scope.dateFrom, $scope.dateTo);
 
-    $scope.groups = [];
+    $scope.articles = [];
 
     $scope.search = {
         str: "",
@@ -27,25 +27,26 @@ module.exports = function($scope, pageViews, searchService, chartService, $http,
         var day = date.getDate() + '';
         var month = date.getMonth() + 1 + '';
         var year = date.getFullYear() + '';
-        var month = month < 10 ? '0' + month: month;
-        var day = day < 10 ? '0' + day: day;
+        month = month < 10 ? '0' + month: month;
+        day = day < 10 ? '0' + day: day;
         return year+month+day;
     };
     
     $scope.addNewArticle = function (name) {
+        console.log($scope.chosen.proj);
         pageViews.query({
             project:    $scope.chosen.lang.wiki + '.' + $scope.chosen.proj.namespace,
+            projname:   $scope.chosen.proj.proj,
+            lang:       $scope.chosen.lang.local,
             article:    name,
-            from:       $scope.dateToStr($scope.dateFrom),
-            to:         $scope.dateToStr($scope.dateTo),
+            fromStr:       $scope.dateToStr($scope.dateFrom),
+            fromDate:      new Date($scope.dateFrom.getTime()),
+            toStr:         $scope.dateToStr(new Date($scope.dateTo.getTime()+1)),
+            toDate:        new Date($scope.dateTo.getTime() + 1)
         }).$promise.then(function(result) {
             result.article.name = name;
-            $scope.groups.push({
-                articles:[result.article],
-                name: name
-            });
+            $scope.articles.push(result.article);
             chart.getModel().addDataset(name, result.article.views);
-
         });
 
         $scope.search = {
@@ -57,6 +58,7 @@ module.exports = function($scope, pageViews, searchService, chartService, $http,
     $scope.chosen = {};
 
     function reloadAll() {
+        /* TODO: rewrite //Emil
         var g = angular.copy($scope.groups, g);
         $scope.groups = [];
         chart.getModel().clearDatasets();
@@ -64,6 +66,7 @@ module.exports = function($scope, pageViews, searchService, chartService, $http,
             $scope.addNewArticle(val.name);
         });
         chart.getModel().setDateRange($scope.dateFrom, $scope.dateTo);
+        */
     }
    
     $http.get('projects.json').then(function (res) {

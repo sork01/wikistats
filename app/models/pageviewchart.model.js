@@ -216,9 +216,9 @@ module.exports = function()
         var values = [];
         
         var at = new Date(this.dateRangeFrom);
-        var stop = this.dateRangeTo.getTime();
+        var stop = new Date(this.dateRangeTo.getTime() + 1);
         
-        while (at.getTime() < stop)
+        while (at.getTime() <= stop)
         {
             values.push(new Date(at).toISOString().slice(0, 10));
             at.setDate(at.getDate() + 1);

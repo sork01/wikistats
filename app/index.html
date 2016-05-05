@@ -62,13 +62,14 @@
                 </br>
                 <div>
                     <uib-accordion close-others="false">
-                        <uib-accordion-group data-ng-repeat="group in groups">   <!-- TODO: Custom styling -->
+                        <uib-accordion-group data-ng-repeat="article in articles">   <!-- TODO: Custom styling -->
                             <uib-accordion-heading>
-                                {{group.name}} <!-- TODO: Add icons/buttons to every group (use icons from Wikimedia stylesheet) -->
+                                {{article.name}} <!-- TODO: Add icons/buttons to every group (use icons from Wikimedia stylesheet) -->
                             </uib-accordion-heading>
-                            <li data-ng-repeat="article in group.articles">
-                                <span>{{article.name}}</span>
-                            </li>
+                            <li><span>{{'PROJECT' | translate }}: {{article.project}}</span></li>
+                            <li><span>{{'LANGUAGE' | translate }}: {{article.language}}</span></li>
+                            <li><span>Total views: {{article.total}}</span></li>
+                            <li><a href="{{article.link}}" target="_blank">{{'LINK' | translate }}</span></li>
                         </uib-accordion-group>
                     </uib-accordion>
                 </div>
