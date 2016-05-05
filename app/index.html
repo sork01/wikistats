@@ -35,7 +35,7 @@
                         </div>
                         <div uib-dropdown class="btn-group">
                             <button id="project-dd-button" type="button" class="btn btn-default dropdown-toggle" uib-dropdown-toggle ng-disabled="disabled">
-                                {{chosen.lang.local}}<span class="caret"></span>
+                                {{chosen.lang.local | limitTo: 9}}{{chosen.lang.local.length > 9? '...' : '' }}<span class="caret"></span>
                             </button>
                             <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="project-dd-button">
                                 <li role="menuitem" data-ng-repeat="lang in chosen.proj.languages">
