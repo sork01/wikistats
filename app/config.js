@@ -1,0 +1,30 @@
+module.exports = function($translateProvider) {
+    $translateProvider.useLoaderCache(true);
+    
+    $translateProvider.translations('en-US', { //Prevent initial flicker on load
+        'ADD_ARTICLE': 'Add article...',
+
+        'LINE_CHART': 'Line chart',
+        'PIE_CHART': 'Pie chart',
+        'COLUMN_CHART': 'Column chart',
+
+        'EXPORT_AS': 'Export as...',
+        'PRINT': 'Print...',
+        'LANGUAGE': 'Language',
+        'START_DATE': 'Start date',
+        'END_DATE': 'End date',
+        'ARTICLE': 'Article',
+        'LINK': 'Link',
+        'PROJECT': 'Project'
+    });
+    
+    $translateProvider.useStaticFilesLoader({
+        prefix: 'i18n/locale/',
+        suffix: '.json'
+    });
+
+    $translateProvider
+            .fallbackLanguage('en-US')
+		    .preferredLanguage('en-US');
+
+};

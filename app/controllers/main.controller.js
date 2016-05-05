@@ -1,6 +1,6 @@
 var pageviewChartModel = require('../models/pageviewchart.model');
 
-module.exports = function($scope, pageViews, searchService, chartService, $http) {
+module.exports = function($scope, pageViews, searchService, chartService, $http, $translate) {
 
     chart = chartService.createChart('myChart', new pageviewChartModel());
     $scope.dateFrom = new Date(Date.parse("2016-01-01"));
@@ -163,4 +163,17 @@ module.exports = function($scope, pageViews, searchService, chartService, $http)
 
         return '';
     }
+
+    $scope.languages = [{
+            "name": "English (US)",
+            "code": "en-US"
+        }, {
+            "name": "Svenska",
+            "code": "sv-SE",
+        }
+    ];
+
+    $scope.changeLanguage = function(langCode) {
+        $translate.use(langCode);
+    };
 };

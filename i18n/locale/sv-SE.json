@@ -1,0 +1,15 @@
+{
+    "ADD_ARTICLE":	"Lägg till artikel...",
+    "LINE_CHART":	"Linjediagram",
+    "PIE_CHART":	"Pajdiagram",
+    "COLUMN_CHART":	"Kolumndiagram",
+    "EXPORT_AS":    "Exportera som...",
+    "PRINT":        "Printa...",
+    "LANGUAGE":		"Språk",
+    "START_DATE":   "Startdatum",
+    "END_DATE":		"Slutdatum",
+    "ARTICLE":		"Artikel",
+    "LINK":		    "Länk",
+    "PROJECT":		"Projekt",
+    "GRANULARITY":	"Granularity"
+}

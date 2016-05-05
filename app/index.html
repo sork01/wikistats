@@ -5,13 +5,15 @@
     <title>Wikistats</title>
     <script src="vendor/jquery.min.js"></script>
     <script src="vendor/highcharts.js"></script>
-    <script src="/vendor/angular.min.js"></script>
-    <script src="/vendor/angular-resource.min.js"></script>
-    <script src="/vendor/angular-animate.min.js"></script>
+    <script src="vendor/angular.min.js"></script>
+    <script src="vendor/angular-resource.min.js"></script>
+    <script src="vendor/angular-animate.min.js"></script>
     <script src="vendor/exporting.js"></script>
     <script src="vendor/offline-exporting.js"></script>
-    <script src="/assets/js/app.min.js"></script>
-    <script src="/vendor/ui-bootstrap-tpls.js"></script>
+    <script src="assets/js/app.min.js"></script>
+    <script src="vendor/ui-bootstrap-tpls.js"></script>
+    <script src="vendor/angular-translate.min.js"></script>
+    <script src="vendor/angular-translate-loader-static-files.min.js"></script>
     <link rel="stylesheet" href="/assets/css/styles.min.css">
     <!-- Wikimedia UI -->
     <link rel="stylesheet" href="https://wikimedia-ui.wmflabs.org/MW/mediawiki.min.css">
@@ -47,7 +49,7 @@
                 </div>
                 </br>
                 <div class="row row-center std-shadow">
-                    <input type="text" class="form-control" data-ng-model="search.str" typeahead-wait-ms="200" uib-typeahead="article for article in searchArticle($viewValue)" placeholder="Search for article..." typeahead-on-select="addNewArticle($item)">
+                    <input type="text" class="form-control" data-ng-model="search.str" typeahead-wait-ms="200" uib-typeahead="article for article in searchArticle($viewValue)" placeholder="{{ 'ADD_ARTICLE' | translate}}" typeahead-on-select="addNewArticle($item)">
                 </div>
                 <div class="row">
                     <i ng-show="loadingLocations" class="glyphicon glyphicon-refresh"></i>
@@ -85,29 +87,25 @@
 
                             <div class="collapse navbar-collapse" id="top-bar-collapse" style="padding-right: 0">
                                 <ul class="nav navbar-nav">
-                                    <li ng-model="chart.selected" uib-btn-radio="'line'"><a>Line chart</a></li>
-                                    <li ng-model="chart.selected" uib-btn-radio="'pie'"><a>Pie chart</a></li>
-                                    <li ng-model="chart.selected" uib-btn-radio="'column'"><a>Bar chart</a></li> 
+                                    <li ng-model="chart.selected" uib-btn-radio="'line'"><a translate>LINE_CHART</a></li>
+                                    <li ng-model="chart.selected" uib-btn-radio="'pie'"><a translate>PIE_CHART</a></li>
+                                    <li ng-model="chart.selected" uib-btn-radio="'column'"><a translate>COLUMN_CHART</a></li> 
                                     <li uib-dropdown class="dropdown">
-                                        <a href="#" uib-dropdown-toggle data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Export as <span class="caret"></span></a>
+                                        <a href="#" uib-dropdown-toggle data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ 'EXPORT_AS' | translate }}<span class="caret"></span></a>
                                         <ul class="dropdown-menu" uib-dropdown-menu role="menu" style="min-width: 100%"> 
                                             <li><a href="#" data-ng-click="exportgraph('image/svg+xml')">SVG</a></li>
                                             <li><a href="#" data-ng-click="exportgraph('application/pdf')">PNG</a></li>
                                             <li role="separator" class="divider"></li>
-                                            <li><a href="#" data-ng-click="exportgraph('print')">Print...</a></li>
+                                            <li><a href="#" data-ng-click="exportgraph('print')" translate>PRINT</a></li>
                                         </ul>
                                     </li>
                                 </ul>
                                 <ul class="nav navbar-nav" style="float:right;">
                                     <li uib-dropdown class="dropdown">
                                         <a href="#" uib-dropdown-toggle data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                                            Language <span class="caret"></span></a>
+                                            {{ 'LANGUAGE' | translate }} <span class="caret"></span></a>
                                         <ul class="dropdown-menu" uib-dropdown-menu role="menu">
-                                            <li><a href="#">English</a></li>
-                                            <li><a href="#">Swedish</a></li>
-                                            <li><a href="#">French</a></li>
-                                            <li><a href="#">Russian</a></li>
-                                            <li><a href="#">Mandarin</a></li>
+                                            <li data-ng-repeat="lang in languages"><a href="#" data-ng-click="changeLanguage(lang.code)">{{lang.name}}</a></li>
                                         </ul>
                                     </li>
                                 </ul>
@@ -127,7 +125,7 @@
                         <div id="date-col" class="std-shadow">
                             <div class="row">
                                 <div class="col-xs-6">
-                                    Start Date
+                                    {{ 'START_DATE' | translate }} 
                                     <p class="input-group std-shadow">
                                         <input type="text" class="form-control" uib-datepicker-popup="{{format}}" data-ng-model="dateFrom" is-open="popupFrom.opened" datepicker-options="dateOptions" data-ng-required="true" close-text="Close" alt-input-formats="altInputFormats" />
                                         <span class="input-group-btn">
@@ -137,7 +135,7 @@
                                 </div>
 
                                 <div class="col-xs-6">
-                                    End Date
+                                    {{ 'END_DATE' | translate }} 
                                     <p class="input-group std-shadow">
                                         <input type="text" class="form-control" uib-datepicker-popup data-ng-model="dateTo" is-open="popupTo.opened" datepicker-options="dateOptions" data-ng-required="true" close-text="Close" />
                                         <span class="input-group-btn">
