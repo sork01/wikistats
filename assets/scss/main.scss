@@ -39,6 +39,8 @@ div#date-col {
 
 div#left-col {
     background:#636466;
+    z-index: 1;
+    box-shadow:0 0 8px 2px rgba(120,120,120,1);
 }
 
 div#search {
