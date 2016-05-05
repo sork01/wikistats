@@ -23,21 +23,21 @@
                     <div class="btn-group btn-group-justified">
                         <div uib-dropdown is-open="status.isopen" class="btn-group">
                             <button id="language-dd-button" type="button" class="btn btn-default dropdown-toggle" uib-dropdown-toggle ng-disabled="disabled">
-                                {{chosen.proj}}<span class="caret" style="margin-left: 10px"></span>
+                                {{chosen.proj.proj}}<span class="caret" style="margin-left: 10px"></span>
                             </button>
                             <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="language-dd-button">
                                 <li role="menuitem" data-ng-repeat="proj in projects">
-                                    <a href="#" data-ng-click="changeChosen(proj.name,'proj')">{{ proj.name }}</a>
+                                    <a href="#" data-ng-click="changeChosen(proj, 'proj')">{{ proj.proj }}</a>
                                 </li>
                             </ul>
                         </div>
                         <div uib-dropdown class="btn-group">
                             <button id="project-dd-button" type="button" class="btn btn-default dropdown-toggle" uib-dropdown-toggle ng-disabled="disabled">
-                                {{chosen.lang}}<span class="caret" style="margin-left: 5px"></span>
+                                {{chosen.lang.local}}<span class="caret" style="margin-left: 5px"></span>
                             </button>
                             <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="project-dd-button">
-                                <li role="menuitem" data-ng-repeat="proj in projects">
-                                    <a href="#">{{ proj.name }}</a>
+                                <li role="menuitem" data-ng-repeat="lang in chosen.proj.languages">
+                                    <a href="#" data-ng-click="changeChosen(lang, 'lang')">{{ lang.local }}</a>
                                 </li>
                             </ul>
                         </div>
