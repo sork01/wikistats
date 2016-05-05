@@ -128,6 +128,15 @@ module.exports = function(chartService)
                             title: {
                                 text: 'Views'
                             }
+                        },
+
+                        exporting: {
+                            buttons: {
+                                contextButton: {
+                                    enabled: false
+                                }
+                            },
+                            fallbackToExportServer: false
                         }
                         // series: configured a bit later by chartSeriesAdapter.init/add
                     });
@@ -149,6 +158,26 @@ module.exports = function(chartService)
                 scope.chartModel.addEventListener('datasetadded', function(name)
                 {
                     scope.chartSeriesAdapter.add($(element).highcharts(), scope.chartModel.getDatasets(), name);
+                });
+
+                scope.chartModel.addEventListener('exportclicked', function(mime) {
+                    var chart = $(element).highcharts();
+                    console.log(mime);
+                    if(!mime) return;
+                    if(mime === 'print') 
+                    { 
+                        chart.print();
+                    }
+                    else if (mime === 'image/svg+xml' || mime === 'application/pdf')
+                    {
+                        chart.exportChartLocal({
+                            type: mime,
+                            filename: 'chart',
+                            //width: 1280,
+                            sourceWidth: 1280,
+                            sourceHeight: 720
+                        });
+                    }
                 });
                 
                 scope.chartModel.addEventListener('daterangechanged', function()

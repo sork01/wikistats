@@ -85,6 +85,11 @@ module.exports = function($scope, pageViews, searchService, chartService, $http)
         });
     };
 
+    $scope.exportgraph = function(mime) {
+        console.log(mime);
+        if(!mime) return;
+        chart.getModel().exportgraph(mime); 
+    };
     // DATEPICKER
     // TODO: Move everything related to bottom bar date pickers
     // to separate controller

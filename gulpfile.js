@@ -33,6 +33,8 @@ gulp.task('copyvendor', function() {
                     'node_modules/angular-animate/**/*',
                     'node_modules/bootstrap-css-only/css/**/*',
                     'node_modules/angular-ui-bootstrap/dist/**/*',
+                    'node_modules/highcharts-exporting/exporting.js',
+                    'node_modules/highcharts-offline-exporting/offline-exporting.js',
                     'node_modules/highcharts/highcharts.js',
                     'node_modules/jquery/dist/*'])
         .pipe(gulp.dest('dist/vendor'))
