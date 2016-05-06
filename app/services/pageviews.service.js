@@ -26,6 +26,7 @@ module.exports = function($resource) {
                 language:   input.lang,
                 fromdate:   input.fromStr + '00', 
                 todate:     input.toStr + '00', 
+                link:       'https://' + input.project + '.org/wiki/' + input.article,
                 total:      0,
                 views:      [],
                 refresh: function(article, datefrom, dateto, callback) {
