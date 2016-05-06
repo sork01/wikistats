@@ -31,7 +31,7 @@ module.exports = function($resource) {
                 views:      [],
                 refresh: function(article, datefrom, dateto, callback) {
                     pure.fromStr = dateToStr(datefrom) + '00';
-                    pure.todate = dateToStr(dateto) + '00';
+                    pure.toStr = dateToStr(dateto) + '00';
                     $resource(URL, {}, {
                         query: {
                             method: 'GET',
@@ -45,7 +45,7 @@ module.exports = function($resource) {
                                 var j = 0;
 
                                 for(var i = datefrom; i <= dateto; i.setDate(i.getDate() + 1)) {
-                                    if(obj.items[j].timestamp == dateToStr(i) + '00') {
+                                    if(obj.items[j] && obj.items[j].timestamp == dateToStr(i) + '00') {
                                         article.views.push(obj.items[j].views);
                                         article.total += obj.items[j].views;
                                         j++;
