@@ -8,7 +8,7 @@ module.exports = function(chartService)
             // var seriesAdapterInterface = {
                 // type: 'string' // passed to highcharts as chart type,
                 // init: function(chart); // initialize the chart
-                // add: function(chart, datasets, name); // add a data series to the chart
+                // add: function(chart, name); // add a data series to the chart
                 // setXAxis: function(chart); // configure the x-axis
             // };
             
@@ -20,11 +20,11 @@ module.exports = function(chartService)
                     chart.xAxis[0].setCategories(scope.chartModel.getXAxisValues());
                 },
                 
-                add: function(chart, datasets, name)
+                add: function(chart, name)
                 {
                     chart.addSeries({
-                        name: name,
-                        data: datasets[name]
+                        name: scope.chartModel.getDisplayName(name),
+                        data: scope.chartModel.getDataset(name)
                     });
                 },
                 
@@ -43,11 +43,12 @@ module.exports = function(chartService)
                     chart.addSeries({name: 'Total Views', data: []});
                 },
                 
-                add: function(chart, datasets, name)
+                add: function(chart, name)
                 {
                     chart.series[0].addPoint({
-                        name: name,
-                        y: datasets[name].reduce(function(a, b) { return a + b; }, 0)
+                        name: scope.chartModel.getDisplayName(name),
+                        y: scope.chartModel.getDataset(name)
+                                           .reduce(function(a, b) { return a + b; }, 0)
                     });
                 },
                 
@@ -63,12 +64,12 @@ module.exports = function(chartService)
                     chart.addSeries({name: 'Total Views'});
                 },
                 
-                add: function(chart, datasets, name)
+                add: function(chart, name)
                 {
-                    console.log(name);
                     chart.series[0].addPoint({
-                        name: name,
-                        y: datasets[name].reduce(function(a, b) { return a + b; }, 0)
+                        name: scope.chartModel.getDisplayName(name),
+                        y: scope.chartModel.getDataset(name)
+                                           .reduce(function(a, b) { return a + b; }, 0)
                     });
                 },
                 
@@ -129,7 +130,6 @@ module.exports = function(chartService)
                                 text: 'Views'
                             }
                         },
-
                         exporting: {
                             buttons: {
                                 contextButton: {
@@ -149,7 +149,7 @@ module.exports = function(chartService)
                     
                     for (var i in setnames)
                     {
-                        scope.chartSeriesAdapter.add(chart, datasets, setnames[i]);
+                        scope.chartSeriesAdapter.add(chart, setnames[i]);
                     }
                 };
                 
@@ -157,9 +157,14 @@ module.exports = function(chartService)
                 
                 scope.chartModel.addEventListener('datasetadded', function(name)
                 {
-                    scope.chartSeriesAdapter.add($(element).highcharts(), scope.chartModel.getDatasets(), name);
+                    scope.chartSeriesAdapter.add($(element).highcharts(), name);
                 });
-
+                
+                scope.chartModel.addEventListener('datasetscleared', function(name)
+                {
+                    initchart();
+                });
+                
                 scope.chartModel.addEventListener('exportclicked', function(mime) {
                     var chart = $(element).highcharts();
                     console.log(mime);
@@ -182,7 +187,6 @@ module.exports = function(chartService)
                 
                 scope.chartModel.addEventListener('daterangechanged', function()
                 {
-                    console.log('date change');
                     scope.chartSeriesAdapter.setXAxis($(element).highcharts());
                     initchart();
                 });

@@ -206,6 +206,18 @@ module.exports = function()
     };
     
     /**
+     * Retrieve the display name of a dataset. Redefine
+     * this method on an instance to apply your own formatting
+     * to the displayed names of datasets.
+     *
+     * @return String
+     */
+    this.getDisplayName = function(name)
+    {
+        return name;
+    };
+    
+    /**
      * Retrieve the X-axis "values" or "tick labels", i.e. the
      * distinct dates contained in the current date range.
      * 

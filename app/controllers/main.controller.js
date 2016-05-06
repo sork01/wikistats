@@ -7,6 +7,32 @@ module.exports = function($scope, pageViews, searchService, chartService, $http,
     $scope.dateTo = new Date(Date.parse("2016-04-01"));
     chart.getModel().setDateRange($scope.dateFrom, $scope.dateTo);
 
+    function reloadAll() {
+        chart.getModel().clearDatasets();
+        chart.getModel().setDateRange($scope.dateFrom, $scope.dateTo);
+        angular.forEach($scope.articles, function (val, key) {
+            val.refresh(val, new Date($scope.dateFrom), new Date($scope.dateTo),
+                function(result){
+                    chart.getModel().addDataset(result.name + '//lang:' + result.language, result.views);
+                }
+            );
+        });
+    }
+
+    // redefine chartmodel function to format names of chart data series
+    chart.getModel().getDisplayName = function(name) {
+        // "name" is the name we gave when we did model.addDataset
+        var stuff = name.match(/^([^\/]+)(\/\/lang:([^\s]+))?/);
+        
+        if ($scope.activeLanguagesInChart.size > 1) {
+            return stuff[1] + ' (' + stuff[3] + ')';
+        }
+        else {
+            return stuff[1];
+        }
+    };
+
+    $scope.activeLanguagesInChart = new Set();
     $scope.articles = [];
 
     $scope.search = {
@@ -18,8 +44,7 @@ module.exports = function($scope, pageViews, searchService, chartService, $http,
         selected: 'line'
     };
     
-    $scope.$watch('chart.selected', function()
-    {
+    $scope.$watch('chart.selected', function() {
         chart.setType($scope.chart.selected);
     });
     
@@ -33,6 +58,8 @@ module.exports = function($scope, pageViews, searchService, chartService, $http,
     };
     
     $scope.addNewArticle = function (name) {
+        var is_multilang = ($scope.activeLanguagesInChart.size > 1);
+
         var article = pageViews.query({
             project:    $scope.chosen.lang.wiki + '.' + $scope.chosen.proj.namespace,
             projname:   $scope.chosen.proj.proj,
@@ -43,7 +70,14 @@ module.exports = function($scope, pageViews, searchService, chartService, $http,
             toStr:         $scope.dateToStr(new Date($scope.dateTo.getTime()+1)),
             toDate:        new Date($scope.dateTo.getTime() + 1)
         }, function(result) {
-            chart.getModel().addDataset(result.name, result.views);
+            $scope.activeLanguagesInChart.add(result.language);
+
+            if (!is_multilang && $scope.activeLanguagesInChart.size == 2) {
+                reloadAll();
+            }
+            else {
+                chart.getModel().addDataset(result.name + '//lang:' + result.language, result.views);
+            }
         });
         $scope.articles.push(article);
 
@@ -51,21 +85,8 @@ module.exports = function($scope, pageViews, searchService, chartService, $http,
             str: "",
             list: [] 
         };
-     
     };
     $scope.chosen = {};
-
-    function reloadAll() {
-        chart.getModel().clearDatasets();
-        chart.getModel().setDateRange($scope.dateFrom, $scope.dateTo);
-        angular.forEach($scope.articles, function (val, key) {
-            val.refresh(val, new Date($scope.dateFrom), new Date($scope.dateTo),
-                function(result){
-                    chart.getModel().addDataset(result.name, result.views);
-                }
-            );
-        });
-    }
    
     $http.get('projects.json').then(function (res) {
         $scope.projects = res.data.projects;
