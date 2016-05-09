@@ -1,0 +1,15 @@
+{
+    "ADD_ARTICLE":  "Aggiungi articolo ...",
+    "LINE_CHART":   "Grafico a linee",
+    "PIE_CHART":    "Grafico a torta",
+    "COLUMN_CHART": "Grafico a barre",
+    "EXPORT_AS":    "Esporta...",
+    "PRINT":        "Stampa...",
+    "LANGUAGE":     "Lingua",
+    "START_DATE":   "Data di inizio",
+    "END_DATE":     "Data di fine",
+    "ARTICLE":      "Articolo",
+    "LINK":         "Link",
+    "PROJECT":      "Progetto",
+    "GRANULARITY":  "Granularità"
+}

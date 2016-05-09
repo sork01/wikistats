@@ -193,6 +193,15 @@ module.exports = function($scope, pageViews, searchService, chartService, $http,
             "name": "Français (FR)",
             "code": "fr-FR"
         }, {
+            "name": "Italiano",
+            "code": "it-IT"
+        }, {
+            "name": "日本語",
+            "code": "ja-JP"
+        }, {
+            "name": "Polski",
+            "code": "pl-PL"
+        }, {
             "name": "Português (BR)",
             "code": "pt-BR"
         }, {
