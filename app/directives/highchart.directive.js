@@ -27,7 +27,18 @@ module.exports = function(chartService)
                         data: scope.chartModel.getDataset(name)
                     });
                 },
-                
+
+                remove: function(chart, name)
+                {
+                    var seriesLength = chart.series.length;
+                    for(var i = 0; i < seriesLength; i++) {
+                        if(chart.series[i].name == name) {
+                            chart.series[i].remove();
+                        }
+                    }
+
+                },
+
                 setXAxis: function(chart)
                 {
                     chart.xAxis[0].setCategories(scope.chartModel.getXAxisValues());
@@ -51,6 +62,16 @@ module.exports = function(chartService)
                                            .reduce(function(a, b) { return a + b; }, 0)
                     });
                 },
+
+                remove: function(chart, name)
+                {
+                    var len = chart.series[0].data.length;
+                    for(var i = 0; i < len; i++) {
+                        if(chart.series[0].data[i].name == name) {
+                            chart.series[0].data[i].remove(true, false);
+                        }
+                    }
+                },
                 
                 setXAxis: function(chart) { }
             };
@@ -72,7 +93,18 @@ module.exports = function(chartService)
                                            .reduce(function(a, b) { return a + b; }, 0)
                     });
                 },
-                
+
+                remove: function(chart, name)
+                {
+                    var len = chart.series[0].data.length;
+                    for(var i = 0; i < len; i++) {
+                        if(chart.series[0].data[i].name == name) {
+                            chart.series[0].data[i].remove(true, false);
+                        }
+                    }
+
+                },
+
                 setXAxis: function(chart) { }
             };
             
@@ -164,7 +196,13 @@ module.exports = function(chartService)
                 {
                     initchart();
                 });
-                
+
+                scope.chartModel.addEventListener('datasetremoved', function(name)
+                {
+                    var disp = scope.chartModel.getDisplayName(name);
+                    scope.chartSeriesAdapter.remove($(element).highcharts(), disp);
+                });
+
                 scope.chartModel.addEventListener('exportclicked', function(mime) {
                     var chart = $(element).highcharts();
                     console.log(mime);

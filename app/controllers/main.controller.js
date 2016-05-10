@@ -40,6 +40,14 @@ module.exports = function($scope, pageViews, searchService, chartService, $http,
         list: [] 
     };
     
+    $scope.removeArticle = function(article) {
+        if(article == undefined) return;
+        var idx = $scope.articles.indexOf(article);
+        $scope.articles.splice(idx, 1);
+        chart.getModel().removeDataset(article.name + '//lang:' + article.language);
+        //reloadAll(); //TODO: Don't redraw the full chart 
+    };
+
     $scope.chart = {
         selected: 'line'
     };

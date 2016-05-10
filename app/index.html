@@ -8,8 +8,6 @@
     <script src="vendor/angular.min.js"></script>
     <script src="vendor/angular-resource.min.js"></script>
     <script src="vendor/angular-animate.min.js"></script>
-    <script src="vendor/exporting.js"></script>
-    <script src="vendor/offline-exporting.js"></script>
     <script src="assets/js/app.min.js"></script>
     <script src="vendor/ui-bootstrap-tpls.js"></script>
     <script src="vendor/angular-translate.min.js"></script>
@@ -64,7 +62,16 @@
                     <uib-accordion close-others="false">
                         <uib-accordion-group data-ng-repeat="article in articles">   <!-- TODO: Custom styling -->
                             <uib-accordion-heading>
-                                {{article.name}} <!-- TODO: Add icons/buttons to every group (use icons from Wikimedia stylesheet) -->
+                                <div class="row">
+                                    <div class="col-xs-10">
+                                        {{article.name}} <!-- TODO: Add icons/buttons to every group (use icons from Wikimedia stylesheet) -->
+                                    </div>
+                                    <div class="col-xs-2">
+                                        <a href="#" class="pull-right" data-ng-click="removeArticle(article)">
+                                            <wiki-icon icon="cross"></wiki-icon>
+                                        </a>
+                                    </div>
+                                </div>
                             </uib-accordion-heading>
                             <li><span>{{'PROJECT' | translate }}: {{article.project}}</span></li>
                             <li><span>{{'LANGUAGE' | translate }}: {{article.language}}</span></li>
@@ -154,4 +161,7 @@
         </div>
     </div>
 </body>
+<script src="vendor/exporting.js"></script>
+<script src="vendor/offline-exporting.js"></script>
+<script src="https://fontastic.s3.amazonaws.com/Sr6GbqfKhL8VvZWw23WzLN/icons.js"></script>
 </html>
