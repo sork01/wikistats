@@ -1,5 +1,5 @@
 var gulp        = require('gulp'),
-    sass        = require('gulp-sass'),
+    //sass        = require('gulp-sass'),
     browserSync = require('browser-sync').create(),
     uglify      = require('gulp-uglify'),
     sourcemaps  = require('gulp-sourcemaps'),
@@ -11,7 +11,7 @@ var gulp        = require('gulp'),
     concat      = require('gulp-concat'),
     buffer      = require('vinyl-buffer');
 
-gulp.task('default', ['copy','copyvendor', 'css', 'js', 'lint']);
+gulp.task('default', ['copy','copyvendor', 'css', 'js', 'lint', 'locale']);
 
 gulp.task('browserSync', function() {
     browserSync.init({
@@ -22,7 +22,7 @@ gulp.task('browserSync', function() {
 })
 
 gulp.task('copy', function() {
-    return gulp.src('app/*.html')
+    return gulp.src(['app/*.html', 'assets/projects.json'])
         .pipe(gulp.dest('dist'))
         .pipe(browserSync.stream());
 })
@@ -30,9 +30,15 @@ gulp.task('copy', function() {
 gulp.task('copyvendor', function() {
     return gulp.src(['node_modules/angular/**/*', 
                     'node_modules/angular-resource/**/*',
+                    'node_modules/angular-animate/**/*',
                     'node_modules/bootstrap-css-only/css/**/*',
                     'node_modules/angular-ui-bootstrap/dist/**/*',
+                    'node_modules/highcharts-exporting/exporting.js',
+                    'node_modules/highcharts-exporting/exporting.js',
+                    'node_modules/highcharts-offline-exporting/offline-exporting.js',
                     'node_modules/highcharts/highcharts.js',
+                    'node_modules/angular-translate-loader-static-files/angular-translate-loader-static-files.min.js',
+                    'node_modules/angular-translate/dist/angular-translate.min.js',
                     'node_modules/jquery/dist/*'])
         .pipe(gulp.dest('dist/vendor'))
 })
@@ -48,11 +54,17 @@ gulp.task('watch', ['browserSync', 'default'],  function(){
     gulp.watch('assets/scss/**/*.s*ss', ['css']);
     gulp.watch('app/**/*.js', ['lint', 'js']);
     gulp.watch('app/*.html', ['copy']);
+    gulp.watch('i18n/locale/*', ['locale']);
 })
+
+gulp.task('locale', function() {
+    return gulp.src('i18n/locale/*')
+            .pipe(gulp.dest('dist/i18n/locale'))
+});
 
 gulp.task('css', function() {
     return gulp.src('assets/scss/**/*.s*ss') 
-        .pipe(sass())
+        //.pipe(sass())
         .pipe(concat('styles.min.css'))
         .pipe(minifyCSS())
         .pipe(gulp.dest('dist/assets/css'))

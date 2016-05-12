@@ -1,0 +1,15 @@
+{
+    "ADD_ARTICLE":  "記事を追加 ...",
+    "LINE_CHART":   "折れ線グラフ",
+    "PIE_CHART":    "円グラフ",
+    "COLUMN_CHART": "棒グラフ",
+    "EXPORT_AS":    "エクスポート...",
+    "PRINT":        "印刷...",
+    "LANGUAGE":     "言語",
+    "START_DATE":   "開始日",
+    "END_DATE":     "終了日",
+    "ARTICLE":      "記事",
+    "LINK":         "リンク",
+    "PROJECT":      "プロジェクト",
+    "GRANULARITY":  "粒度"
+}

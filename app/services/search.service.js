@@ -13,7 +13,7 @@ module.exports = function($http) {
                         titles.push(val.title);
                     });
 
-                    return titles;
+                    return {url: titles};
                 }
             });
         }

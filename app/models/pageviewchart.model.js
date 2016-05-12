@@ -2,7 +2,7 @@
  * Pageviews chart data model.
  *
  * @author Mikael Forsberg <miforsb@kth.se>
- * @version 20160421T0822
+ * @version 20160502T2001
  */
 module.exports = function()
 {
@@ -20,7 +20,6 @@ module.exports = function()
      * Y-value data sets.
      */
     this.datasets = {};
-    this.latest = null;
     
     // "constructor" begins
     
@@ -37,7 +36,77 @@ module.exports = function()
     // default date range is one week ending at today's date
     this.dateRangeFrom.setDate(this.dateRangeFrom.getDate() - 7);
     
+    // create event slots
+    this.events = [
+        ['daterangechanged'],
+        ['datasetadded'],
+        ['datasetremoved'],
+        ['datasetscleared'],
+        ['exportclicked']
+    ];
+    
     // "constructor" ends
+    
+    /**
+     * Search for and potentially return a named event.
+     * 
+     * @param String which Name of event
+     * @access private
+     * @return Array if event exists, null otherwise
+     */
+    this.findEvent = function(which)
+    {
+        var event = null;
+        
+        for (var i in this.events)
+        {
+            if (this.events[i][0] == which)
+            {
+                event = this.events[i];
+                break;
+            }
+        }
+        
+        return event;
+    };
+    
+    /**
+     * Fire a named event, calling all registered handlers.
+     * 
+     * @param String which Name of event
+     * @param Object data Data to pass to handlers
+     * @access private
+     * @return void
+     */
+    this.dispatchEvent = function(which, data)
+    {
+        var event = this.findEvent(which);
+        
+        if (event)
+        {
+            for (k = 1; k < event.length; ++k)
+            {
+                event[k](data);
+            }
+        }
+    };
+    
+    /**
+     * Register an event handler to a named event.
+     * 
+     * @param String which Name of event
+     * @param Function fn Event handler callback function
+     * @return void
+     */
+    this.addEventListener = function(which, fn)
+    {
+        var event = this.findEvent(which);
+        
+        if (event)
+        {
+            event.push(fn);
+        }
+    };
     
     /**
      * Set the date range. The starting date must be an earlier date
@@ -54,8 +123,15 @@ module.exports = function()
             return false;
         }
         
+        var signalEvent = (from.getTime() != this.dateRangeFrom.getTime() || to.getTime() != this.dateRangeTo.getTime());
+        
         this.dateRangeFrom = from;
         this.dateRangeTo = to;
+        
+        if (signalEvent)
+        {
+            this.dispatchEvent('daterangechanged', null);
+        }
         
         return true;
     };
@@ -71,13 +147,8 @@ module.exports = function()
      */
     this.addDataset = function(name, yValues)
     {
-        this.latest = {name: name, values: yValues};
         this.datasets[name] = yValues;
-    };
-
-    this.getLatest = function()
-    {
-        return this.latest;
+        this.dispatchEvent('datasetadded', name);
     };
     
     /**
@@ -89,12 +160,39 @@ module.exports = function()
     this.removeDataset = function(name)
     {
         delete this.datasets[name];
+        this.dispatchEvent('datasetremoved', name);
     };
-
-    this.clearDataset = function()
+    
+    /**
+     * Remove all datasets.
+     *
+     * @return void
+     */
+    this.clearDatasets = function()
     {
         this.datasets = {};
-        this.latest = null;
+        this.dispatchEvent('datasetscleared', null);
+    };
+
+    /**
+     * Export the graph
+     *
+     * @param String mime-type of the export format
+     * @return void
+     */
+    this.exportgraph = function(mime)
+    {
+        this.dispatchEvent('exportclicked', mime);
+    };
+
+    /**
+     * Retrieve a datasets.
+     *
+     * @return Object
+     */
+    this.getDataset = function(name)
+    {
+        return this.datasets[name];
     };
     
     /**
@@ -108,6 +206,18 @@ module.exports = function()
     };
     
     /**
+     * Retrieve the display name of a dataset. Redefine
+     * this method on an instance to apply your own formatting
+     * to the displayed names of datasets.
+     *
+     * @return String
+     */
+    this.getDisplayName = function(name)
+    {
+        return name;
+    };
+    
+    /**
      * Retrieve the X-axis "values" or "tick labels", i.e. the
      * distinct dates contained in the current date range.
      * 
@@ -118,9 +228,9 @@ module.exports = function()
         var values = [];
         
         var at = new Date(this.dateRangeFrom);
-        var stop = this.dateRangeTo.getTime();
+        var stop = new Date(this.dateRangeTo.getTime() + 1);
         
-        while (at.getTime() < stop)
+        while (at.getTime() <= stop)
         {
             values.push(new Date(at).toISOString().slice(0, 10));
             at.setDate(at.getDate() + 1);

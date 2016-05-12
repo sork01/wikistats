@@ -1,0 +1,15 @@
+{
+    "ADD_ARTICLE":  "Dodaj artykuł ...",
+    "LINE_CHART":   "Wykresy liniowe",
+    "PIE_CHART":    "Wykresy kołowe",
+    "COLUMN_CHART": "Wykresy kolumnowe",
+    "EXPORT_AS":    "Wyeksportuj jako...",
+    "PRINT":        "Wydrukuj...",
+    "LANGUAGE":     "Język",
+    "START_DATE":   "Data rozpoczęcia",
+    "END_DATE":     "Data końcowa",
+    "ARTICLE":      "Artykuł",
+    "LINK":         "Link",
+    "PROJECT":      "Projekt",
+    "GRANULARITY":  "Ziarnistość"
+}
