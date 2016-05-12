@@ -1,4 +1,4 @@
-module.exports = function($translateProvider) {
+module.exports = function($translateProvider, $compileProvider) {
 
     $translateProvider.useSanitizeValueStrategy('escape');
 
@@ -28,5 +28,7 @@ module.exports = function($translateProvider) {
     $translateProvider
             .fallbackLanguage('en-US')
 		    .preferredLanguage('en-US');
+
+    $compileProvider.debugInfoEnabled(false);
 
 };

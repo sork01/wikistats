@@ -25,6 +25,6 @@ wikistats.service('chartService', chartService);
 wikistats.directive('highchart', ['chartService', highchartDirective]);
 
 var config = require('./config.js');
-wikistats.config(['$translateProvider', config]);
+wikistats.config(['$translateProvider', '$compileProvider', config]);
 
 wikistats.controller('MainController', ['$scope','pageViews', 'searchService', 'chartService', '$http', '$translate', MainController]);
