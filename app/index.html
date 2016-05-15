@@ -38,7 +38,7 @@
                                 {{chosen.lang.local | limitTo: 9}}{{chosen.lang.local.length > 9? '...' : '' }}<span class="caret"></span>
                             </button>
                             <ul class="dropdown-menu scrollable-menu" uib-dropdown-menu role="menu" aria-labelledby="project-dd-button">
-                                <input type="text" class="form-control" data-ng-model="languageFilter" data-ng-click="$event.stopPropagation()" ng-model-options="{debounce: 200}">
+                                <input type="text" class="form-control" data-ng-model="languageFilter" data-ng-click="$event.stopPropagation()" ng-model-options="{debounce: 200}" placeholder="{{'SEARCH' | translate}}">
                                 <li role="separator" class="divider"></li>
                                 <li role="menuitem" data-ng-repeat="lang in chosen.proj.languages | filter:languageFilter">
                                     <a href="#" data-ng-click="changeChosen(lang, 'lang')">{{ lang.local }}</a>
@@ -75,7 +75,7 @@
                             </uib-accordion-heading>
                             <li><span>{{'PROJECT' | translate }}: {{article.project}}</span></li>
                             <li><span>{{'LANGUAGE' | translate }}: {{article.language}}</span></li>
-                            <li><span>Total views: {{article.total}}</span></li>
+                            <li><span>{{ 'TOTALVIEWS' | translate }}: {{article.total}}</span></li>
                             <li><a href="{{article.link}}" target="_blank">{{'LINK' | translate }}</span></li>
                         </uib-accordion-group>
                     </uib-accordion>

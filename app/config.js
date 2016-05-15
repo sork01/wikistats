@@ -12,6 +12,8 @@ module.exports = function($translateProvider, $compileProvider) {
         'EXPORT_AS': 'Export as...',
         'PRINT': 'Print...',
         'LANGUAGE': 'Language',
+        'SEARCH': 'Search...',
+        'TOTALVIEWS': 'Total views',
         'START_DATE': 'Start date',
         'END_DATE': 'End date',
         'ARTICLE': 'Article',

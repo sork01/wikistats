@@ -6,6 +6,8 @@
     "EXPORT_AS":    "Exportera som...",
     "PRINT":        "Skriv ut...",
     "LANGUAGE":		"Språk",
+    "SEARCH":       "Sök...",
+    "TOTALVIEWS":   "Totalt antal visningar",
     "START_DATE":   "Startdatum",
     "END_DATE":		"Slutdatum",
     "ARTICLE":		"Artikel",
