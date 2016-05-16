@@ -6,6 +6,8 @@
     "EXPORT_AS":    "Exporter comme...",
     "PRINT":        "Imprimer...",
     "LANGUAGE":     "Langue",
+    "SEARCH":       "Recherche...",
+    "TOTALVIEWS":   "Vues totales",
     "START_DATE":   "Date de début",
     "END_DATE":     "Date de fin",
     "ARTICLE":      "Article",

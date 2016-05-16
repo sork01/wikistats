@@ -6,6 +6,8 @@
     "EXPORT_AS":    "エクスポート...",
     "PRINT":        "印刷...",
     "LANGUAGE":     "言語",
+    "SEARCH":       "検索...",
+    "TOTALVIEWS":   "総視聴数",
     "START_DATE":   "開始日",
     "END_DATE":     "終了日",
     "ARTICLE":      "記事",
