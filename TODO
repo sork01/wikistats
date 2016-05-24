@@ -1,0 +1,18 @@
+This is a somewhat temporary todo-list
+======================================
+
+
+    - Testing (Unit and E2E)
+    
+    - Acknowledgements (libraries)
+
+    - Investigate in edit statistics
+
+    - Refactor the maincontroller and the Article object
+
+    - Localization for the datum fields
+
+
+======================================
+Emil Gedda, 24th May 2016
+

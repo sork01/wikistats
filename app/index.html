@@ -12,10 +12,10 @@
     <script src="vendor/ui-bootstrap-tpls.js"></script>
     <script src="vendor/angular-translate.min.js"></script>
     <script src="vendor/angular-translate-loader-static-files.min.js"></script>
-    <link rel="stylesheet" href="/assets/css/styles.min.css">
+    <link rel="stylesheet" href="assets/css/styles.min.css">
     <!-- Wikimedia UI -->
-    <link rel="stylesheet" href="https://wikimedia-ui.wmflabs.org/MW/mediawiki.min.css">
-    <link rel="import" href="http://munmay.com/mwui/mw/elements.html">
+    <link rel="stylesheet" href="mediawiki.min.css">
+    <link rel="import" href="elements.html">
 </head>
 <body data-ng-controller="MainController">
     <div class="container-fluid fill">
@@ -60,24 +60,28 @@
                 </br>
                 <div>
                     <uib-accordion close-others="false">
-                        <uib-accordion-group data-ng-repeat="article in articles">   <!-- TODO: Custom styling -->
-                            <uib-accordion-heading>
-                                <div class="row">
-                                    <div class="col-xs-10">
-                                        {{article.name}} <!-- TODO: Add icons/buttons to every group (use icons from Wikimedia stylesheet) -->
+                        <div data-ng-repeat="article in articles" style="margin-bottom: -20px">
+                            <uib-accordion-group>   <!-- TODO: Custom styling -->
+                                <uib-accordion-heading>
+                                    <div class="row">
+                                        <div class="col-xs-10">
+                                            {{article.name}} <!-- TODO: Add icons/buttons to every group (use icons from Wikimedia stylesheet) -->
+                                        </div>
+                                        <div class="col-xs-2">
+                                            <a href="#" data-ng-click="removeArticle(article)">
+                                                <wiki-icon icon="cross"></wiki-icon>
+                                            </a>
+                                        </div>
                                     </div>
-                                    <div class="col-xs-2">
-                                        <a href="#" data-ng-click="removeArticle(article)">
-                                            <wiki-icon icon="cross"></wiki-icon>
-                                        </a>
-                                    </div>
-                                </div>
-                            </uib-accordion-heading>
-                            <li><span>{{'PROJECT' | translate }}: {{article.project}}</span></li>
-                            <li><span>{{'LANGUAGE' | translate }}: {{article.language}}</span></li>
-                            <li><span>{{ 'TOTALVIEWS' | translate }}: {{article.total}}</span></li>
-                            <li><a href="{{article.link}}" target="_blank">{{'LINK' | translate }}</span></li>
-                        </uib-accordion-group>
+                                </uib-accordion-heading>
+                                <li><span>{{'PROJECT' | translate }}: {{article.project}}</span></li>
+                                <li><span>{{'LANGUAGE' | translate }}: {{article.language}}</span></li>
+                                <li><span>{{ 'TOTALVIEWS' | translate }}: {{article.total}}</span></li>
+                                <li><span><a href="{{article.link}}" target="_blank">{{'LINK' | translate }}</a></span></li>
+                            </uib-accordion-group>
+                            <uib-progressbar max="100" animate="true" value="0" style="height: 3px;transition: width 10s ease;background-color:inherit"></uib-progressbar>
+
+                        </div>
                     </uib-accordion>
                 </div>
             </div>

@@ -144,6 +144,13 @@ module.exports = function(chartService)
                                 dataLabels: {
                                     format: '{point.name}: {point.percentage:.1f} %'
                                 }
+                            },
+                            series: {
+                                states: {
+                                    hover: {
+                                        lineWidthPlus: 0
+                                    }
+                                }
                             }
                         },
                         tooltip: {

@@ -4,7 +4,10 @@ module.exports = function($scope, pageViews, searchService, chartService, $http,
 
     chart = chartService.createChart('myChart', new pageviewChartModel());
     $scope.dateFrom = new Date(Date.parse("2016-01-01"));
-    $scope.dateTo = new Date(Date.parse("2016-04-01"));
+    var today = new Date();
+    var yesterday = new Date(today);
+    yesterday.setDate(today.getDate() - 1);
+    $scope.dateTo = yesterday;
     chart.getModel().setDateRange($scope.dateFrom, $scope.dateTo);
 
     function reloadAll() {
@@ -41,7 +44,7 @@ module.exports = function($scope, pageViews, searchService, chartService, $http,
     };
     
     $scope.removeArticle = function(article) {
-        if(article == undefined) return;
+        if(article === undefined) return;
         var idx = $scope.articles.indexOf(article);
         $scope.articles.splice(idx, 1);
         chart.getModel().removeDataset(article.name + '//lang:' + article.language);

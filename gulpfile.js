@@ -1,5 +1,4 @@
 var gulp        = require('gulp'),
-    //sass        = require('gulp-sass'),
     browserSync = require('browser-sync').create(),
     uglify      = require('gulp-uglify'),
     sourcemaps  = require('gulp-sourcemaps'),
@@ -11,7 +10,7 @@ var gulp        = require('gulp'),
     concat      = require('gulp-concat'),
     buffer      = require('vinyl-buffer');
 
-gulp.task('default', ['copy','copyvendor', 'css', 'js', 'lint', 'locale']);
+gulp.task('default', ['copy', 'copywikimediaui','copyvendor', 'css', 'js', 'lint', 'locale']);
 
 gulp.task('browserSync', function() {
     browserSync.init({
@@ -27,8 +26,14 @@ gulp.task('copy', function() {
         .pipe(browserSync.stream());
 })
 
+gulp.task('copywikimediaui', function() {
+    return gulp.src('wikimedia-ui/**/*')
+            .pipe(gulp.dest('dist'))
+});
+
 gulp.task('copyvendor', function() {
     return gulp.src(['node_modules/angular/**/*', 
+                    'node_modules/angular-resource/**/*',
                     'node_modules/angular-resource/**/*',
                     'node_modules/angular-animate/**/*',
                     'node_modules/bootstrap-css-only/css/**/*',
@@ -47,7 +52,6 @@ gulp.task('lint', function() {
     return gulp.src('app/**/*.js')
         .pipe(jshint())
         .pipe(jshint.reporter('default'))
-        //.pipe(jshint.reporter('fail'))
 });
 
 gulp.task('watch', ['browserSync', 'default'],  function(){
@@ -64,7 +68,6 @@ gulp.task('locale', function() {
 
 gulp.task('css', function() {
     return gulp.src('assets/scss/**/*.s*ss') 
-        //.pipe(sass())
         .pipe(concat('styles.min.css'))
         .pipe(minifyCSS())
         .pipe(gulp.dest('dist/assets/css'))
